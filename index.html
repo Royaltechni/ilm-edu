@@ -41,6 +41,7 @@
       background: radial-gradient(circle at top left, #fdf3ff, #fef7ec);
       color: var(--text);
       line-height: 1.7;
+      overflow-x: hidden; /* إخفاء الـ slider الأفقي */
     }
 
     a {
@@ -130,7 +131,7 @@
       color: var(--muted);
       cursor: pointer;
       border: 1px solid transparent;
-      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.15s;
     }
 
     .nav-link:hover {
@@ -138,12 +139,7 @@
       color: var(--primary);
       border-color: rgba(108, 44, 146, 0.12);
       transform: translateY(-1px);
-    }
-
-    .nav-link.primary {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #fff;
-      border-color: transparent;
+      box-shadow: 0 6px 16px rgba(31,9,56,0.18);
     }
 
     .lang-toggle {
@@ -162,6 +158,7 @@
       color: var(--muted);
       font-weight: 600;
       min-width: 40px;
+      transition: background 0.2s, color 0.2s;
     }
 
     .lang-btn.active {
@@ -259,11 +256,20 @@
       margin-bottom: 0.4rem;
       font-size: 0.94rem;
       animation: floatUp 0.9s ease-out both;
+      transition: transform 0.15s, box-shadow 0.15s;
     }
 
     .hero-list li:nth-child(1) { animation-delay: 0.12s; }
     .hero-list li:nth-child(2) { animation-delay: 0.17s; }
     .hero-list li:nth-child(3) { animation-delay: 0.22s; }
+
+    .hero-list li:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(31,9,56,0.18);
+      border-radius: 12px;
+      padding-inline: 0.25rem;
+      background: rgba(255,255,255,0.7);
+    }
 
     .hero-list li span.icon {
       margin-top: 0.25rem;
@@ -278,6 +284,12 @@
       border: 1px solid rgba(108, 44, 146, 0.06);
       animation: floatUp 0.9s ease-out both;
       animation-delay: 0.15s;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hero-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 60px rgba(29, 9, 56, 0.28);
     }
 
     .hero-card-title {
@@ -306,12 +318,18 @@
       padding: 0.6rem 0.4rem;
       text-align: center;
       animation: floatUp 0.9s ease-out both;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
 
     .count-box:nth-child(1) { animation-delay: 0.05s; }
     .count-box:nth-child(2) { animation-delay: 0.1s; }
     .count-box:nth-child(3) { animation-delay: 0.15s; }
     .count-box:nth-child(4) { animation-delay: 0.2s; }
+
+    .count-box:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 14px 30px rgba(31,9,56,0.25);
+    }
 
     .count-number {
       font-size: 1.4rem;
@@ -349,13 +367,14 @@
       border: 1px solid rgba(108, 44, 146, 0.2);
       font-size: 0.95rem;
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s, background 0.2s;
     }
 
     .form-row input[type="email"]:focus {
       border-color: var(--secondary);
       box-shadow: 0 0 0 2px rgba(242, 167, 27, 0.25);
       transform: translateY(-1px);
+      background: #fff;
     }
 
     .btn-primary {
@@ -373,8 +392,8 @@
 
     .btn-primary:hover {
       opacity: 0.97;
-      transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(29, 9, 56, 0.28);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 24px rgba(29, 9, 56, 0.35);
     }
 
     .note-small {
@@ -434,7 +453,7 @@
       padding: 1rem;
       border: 1px solid rgba(108, 44, 146, 0.06);
       box-shadow: 0 6px 26px rgba(31, 9, 56, 0.06);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
       animation: floatUp 0.9s ease-out both;
     }
 
@@ -446,8 +465,9 @@
     .feature-card:nth-child(6) { animation-delay: 0.3s; }
 
     .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 14px 36px rgba(31, 9, 56, 0.16);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 18px 40px rgba(31, 9, 56, 0.2);
+      background: linear-gradient(135deg, #ffffff, #fff7ec);
     }
 
     .feature-icon {
@@ -461,6 +481,11 @@
       font-size: 1.1rem;
       margin-bottom: 0.4rem;
       animation: pop 0.9s ease-out both;
+      transition: transform 0.2s;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: rotate(-6deg) scale(1.15);
     }
 
     .feature-title {
@@ -534,15 +559,13 @@
       position: fixed;
       right: 16px;
       bottom: 18px;
-      width: 54px;
-      height: 54px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
       background: #25d366;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      font-size: 1.6rem;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
       cursor: pointer;
       z-index: 90;
@@ -550,13 +573,15 @@
     }
 
     .whatsapp-btn:hover {
-      transform: translateY(-3px) scale(1.03);
+      transform: translateY(-3px) scale(1.05);
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
       opacity: 0.97;
     }
 
-    .whatsapp-btn span {
-      margin-top: 2px;
+    .whatsapp-icon {
+      width: 28px;
+      height: 28px;
+      display: block;
     }
 
     /* ---------- Animations ---------- */
@@ -588,7 +613,8 @@
     .lang { display: none; }
     .lang-en { display: inline; }
 
-    [dir="rtl"] .hero, [dir="rtl"] .header-inner {
+    [dir="rtl"] .hero,
+    [dir="rtl"] .header-inner {
       direction: rtl;
     }
   </style>
@@ -738,7 +764,7 @@
             </span>
           </p>
 
-          <!-- Mailchimp form (target hidden iframe for same-page experience) -->
+          <!-- Mailchimp form to hidden iframe -->
           <form id="subscribe-form"
                 class="subscribe-form validate"
                 action="https://ilm-edu.us8.list-manage.com/subscribe/post?u=5a62b975c387dc430e16013ad&amp;id=9df49a4a38&amp;f_id=00c023e0f0"
@@ -763,7 +789,6 @@
               </button>
             </div>
 
-            <!-- Hidden anti-bot field from Mailchimp -->
             <div style="position: absolute; left: -5000px;" aria-hidden="true">
               <input type="text"
                      name="b_5a62b975c387dc430e16013ad_9df49a4a38"
@@ -777,10 +802,12 @@
             </div>
           </form>
 
-          <!-- hidden iframe to avoid opening new page -->
           <iframe name="mc_iframe" style="display:none;"></iframe>
 
-          
+          <p class="integrations-note">
+            <span class="lang lang-en">Integrated with: Mailchimp · Brevo · email marketing tools</span>
+            <span class="lang lang-ar">متكامل مع: Mailchimp · Brevo · أدوات التسويق بالبريد الإلكتروني</span>
+          </p>
         </aside>
       </section>
 
@@ -941,7 +968,10 @@
 
 <!-- WhatsApp Floating Button -->
 <a href="https://wa.me/971553114946" target="_blank" class="whatsapp-btn" aria-label="Chat on WhatsApp">
-  <span>🟢</span>
+  <!-- أيقونة واتساب SVG -->
+  <svg class="whatsapp-icon" viewBox="0 0 32 32" aria-hidden="true">
+    <path fill="#ffffff" d="M16 6.1c-4.9 0-8.9 3.9-8.9 8.8 0 1.6.4 3.1 1.3 4.4L7 25l5.8-1.5c1.3.7 2.6 1 4.1 1 4.9 0 8.9-3.9 8.9-8.8S20.9 6.1 16 6.1zm0 15.9c-1.3 0-2.5-.3-3.7-.9l-.3-.1-3.4.9.9-3.3-.2-.3c-.8-1.1-1.2-2.4-1.2-3.8 0-3.7 3.1-6.7 6.9-6.7s6.9 3 6.9 6.7-3.1 6.7-6.9 6.7zm3.8-5.1c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1-.1.2-.6.7-.7.8-.1.1-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.7-.1-.2 0-.4.1-.5.1-.1.2-.3.3-.4.1-.1.1-.2.2-.3.1-.1.1-.2.1-.3 0-.1 0-.2-.1-.3-.1-.1-.5-1.1-.7-1.5-.2-.4-.4-.4-.5-.4h-.4c-.1 0-.3 0-.4.2-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.6 3.9 3.5.5.2.9.3 1.2.4.5.2 1 .2 1.3.1.4-.1 1.3-.5 1.4-1 .2-.5.2-.9.1-1-.1-.1-.2-.1-.4-.2z"/>
+  </svg>
 </a>
 
 <!-- Popup -->
@@ -1018,12 +1048,10 @@
       }
     });
 
-    // Toggle buttons
     document.querySelectorAll("[data-lang-switch]").forEach(btn => {
       btn.classList.toggle("active", btn.getAttribute("data-lang-switch") === lang);
     });
 
-    // Placeholder text for email field
     const emailInput = document.getElementById("mce-EMAIL");
     if (emailInput) {
       const phEn = emailInput.getAttribute("data-placeholder-en");
@@ -1044,7 +1072,7 @@
 
   // Popup handling
   const popupOverlay = document.getElementById("popup-overlay");
-  const popupClose = document.getElementById("popup-close");
+  const popupClose   = document.getElementById("popup-close");
   const subscribeForm = document.getElementById("subscribe-form");
 
   function openPopup() {
@@ -1068,14 +1096,12 @@
 
   if (subscribeForm) {
     subscribeForm.addEventListener("submit", () => {
-      // لا نمنع الإرسال حتى يذهب الطلب إلى Mailchimp في الخلفية عبر iframe
       setTimeout(() => {
         subscribeForm.reset();
         openPopup();
-      }, 300); // تأخير بسيط لشعور أفضل
+      }, 300);
     });
   }
 </script>
 </body>
 </html>
-
