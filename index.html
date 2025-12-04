@@ -912,7 +912,16 @@ function onMailchimpSubmit() {
   // اللغة الافتراضية: إنجليزي
   setLanguage("en");
 </script>
-<!-- Popup رسالة النجاح المشتركة للنسخة العربية والإنجليزية -->
+<script>
+  function showPopup() {
+    // نُظهر رسالة النجاح فور إرسال الفورم
+    document.getElementById("popup-success").style.display = "block";
+  }
+
+  function closePopup() {
+    document.getElementById("popup-success").style.display = "none";
+  }
+  <!-- Popup رسالة النجاح المشتركة للنسخة العربية والإنجليزية -->
 <div id="popup-success" 
      style="
         display:none;
@@ -949,16 +958,8 @@ function onMailchimpSubmit() {
     </button>
 </div>
 
-<script>
-  function showPopup() {
-    // نُظهر رسالة النجاح فور إرسال الفورم
-    document.getElementById("popup-success").style.display = "block";
-  }
-
-  function closePopup() {
-    document.getElementById("popup-success").style.display = "none";
-  }
 </script>
 </body>
 </html>
+
 
