@@ -392,11 +392,12 @@
 
 <div class="subscribe-box">
   <form
-    class="subscribe-row"
-    action="https://ilm-edu.us8.list-manage.com/subscribe/post?u=5a62b975c387dc430e16013ad&amp;id=9df49a4a38&amp;f_id=00c023e0f0"
-    method="post"
-    target="mc-iframe"
-  >
+  class="subscribe-row"
+  action="https://ilm-edu.us8.list-manage.com/subscribe/post?u=5a62b975c387dc430e16013ad&amp;id=9df49a4a38&amp;f_id=00c023e0f0"
+  method="post"
+  target="mc-iframe"
+  onsubmit="showPopup()"
+>
     <input
       type="email"
       name="EMAIL"
@@ -912,12 +913,9 @@ function onMailchimpSubmit() {
   setLanguage("en");
 </script>
 <script>
-  // تُستدعى تلقائيًا لما Mailchimp يرجّع رد داخل الـ iframe
-  function onMailchimpSubmit() {
-    // نظهر الرسالة بعد ثانيتين تقريبًا علشان نضمن إن الفورم خلص إرسال
-    setTimeout(function() {
-      document.getElementById("popup-success").style.display = "block";
-    }, 1500);
+  function showPopup() {
+    // نُظهر رسالة النجاح فور إرسال الفورم
+    document.getElementById("popup-success").style.display = "block";
   }
 
   function closePopup() {
