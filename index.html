@@ -919,8 +919,18 @@ function onMailchimpSubmit() {
   }
 
   function closePopup() {
+    // إخفاء الرسالة
     document.getElementById("popup-success").style.display = "none";
-  }
+
+    // مسح حقل الإيميل الإنجليزي
+    var emailInput = document.querySelector('#emailInput');
+    if (emailInput) emailInput.value = "";
+
+    // مسح حقل الإيميل العربي (لو موجود)
+    var emailInputAr = document.querySelector('#emailInputAr');
+    if (emailInputAr) emailInputAr.value = "";
+}
+
   <!-- Popup رسالة النجاح المشتركة للنسخة العربية والإنجليزية -->
 <div id="popup-success" 
      style="
@@ -961,5 +971,4 @@ function onMailchimpSubmit() {
 </script>
 </body>
 </html>
-
 
