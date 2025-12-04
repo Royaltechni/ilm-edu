@@ -1,981 +1,582 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>ILM-EDU Learning Platform</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <title>ILM-EDU | منصة تعليم المستقبل</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ILM-EDU منصة تعليمية متكاملة للمدارس وأولياء الأمور والطلاب، مواءمة كاملة مع المنهاج الإماراتي ونظام تقييم ذكي." />
 
-  <style>
-    :root {
-      --primary: #6a35dd;
-      --primary-soft: rgba(106, 53, 221, 0.12);
-      --gold: #c99a35;
-      --bg-light: #f7f3ff;
-      --bg-mid: #e9ddff;
-      --text-main: #241433;
-      --text-muted: #6c5f87;
-      --card-bg: rgba(255,255,255,0.96);
-      --card-alt-bg: #fbf7ff;
-      --border-soft: rgba(106,53,221,0.16);
-      --radius-xl: 22px;
-      --shadow-soft: 0 18px 40px rgba(72, 39, 135, 0.22);
-    }
+    <!-- Google Analytics - استبدل G-XXXXXXXXXX بمعرّف القياس الخاص بك -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX'); // ضع هنا Measurement ID من GA4
+    </script>
 
-    *{box-sizing:border-box;margin:0;padding:0;}
-    body{
-      font-family:"Tajawal",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:linear-gradient(180deg,var(--bg-light) 0%,var(--bg-mid) 55%,#2a133f 100%);
-      color:var(--text-main);
-      line-height:1.6;
-      overflow-x:hidden;
-    }
+    <style>
+        :root {
+            --primary: #6c2c92; /* بنفسجي */
+            --secondary: #f2a71b; /* ذهبي */
+            --bg: #f9f4ef;
+            --text: #2f2440;
+            --muted: #7b6b8a;
+            --radius-xl: 24px;
+        }
 
-    .animated-bg{
-      position:fixed;inset:0;
-      background:
-        radial-gradient(circle at 10% 0%,rgba(255,255,255,0.9) 0,transparent 50%),
-        radial-gradient(circle at 80% 0%,rgba(233,221,255,0.9) 0,transparent 55%),
-        radial-gradient(circle at 20% 100%,rgba(255,240,210,0.85) 0,transparent 55%);
-      mix-blend-mode:screen;
-      opacity:.45;pointer-events:none;z-index:-1;
-      animation:softFloat 18s ease-in-out infinite;
-    }
-    @keyframes softFloat{
-      0%,100%{transform:translate3d(0,0,0);}
-      50%{transform:translate3d(0,10px,0);}
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .page{max-width:1120px;margin:0 auto;padding:24px 18px 60px;}
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, #fdf3ff, #fef7ec);
+            color: var(--text);
+            line-height: 1.7;
+        }
 
-    header.nav{
-      display:flex;justify-content:space-between;align-items:center;
-      gap:16px;padding:8px 0 22px;
-    }
-    .brand{display:flex;align-items:center;gap:12px;}
+        a {
+            text-decoration: none;
+        }
 
-    /* ✅ لوجو المنصة */
-    .brand-logo{
-      width:52px;
-      height:52px;
-      border-radius:50%;
-      box-shadow:0 12px 28px rgba(57,25,125,.35);
-      overflow:hidden;
-      background:#fdf7ee;
-      animation:logoFloat 4.5s ease-in-out infinite;
-      flex-shrink:0;
-    }
-    .brand-logo img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    @keyframes logoFloat{
-      0%,100%{transform:translateY(0);}
-      50%{transform:translateY(-4px);}
-    }
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .brand-text-main{font-weight:700;font-size:20px;}
-    .brand-text-sub{font-size:12px;color:var(--text-muted);}
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
 
-    .nav-right{
-      display:flex;align-items:center;gap:10px;
-    }
+        header {
+            padding: 1rem 0 2rem;
+        }
 
-    .nav-tag{
-      padding:7px 16px;border-radius:999px;
-      border:1px solid rgba(201,154,53,.45);
-      font-size:12px;color:#614313;
-      background:linear-gradient(120deg,#fff6da,#ffe7a3,#fdf2d1);
-      box-shadow:0 10px 24px rgba(191,132,35,.25);
-      animation:pulseGlow 3.2s ease-in-out infinite;
-      white-space:nowrap;
-    }
-    @keyframes pulseGlow{
-      0%,100%{box-shadow:0 10px 24px rgba(191,132,35,.25);}
-      50%{box-shadow:0 12px 30px rgba(191,132,35,.45);}
-    }
+        .logo-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
 
-    .lang-switch{
-      display:flex;align-items:center;gap:6px;
-      padding:3px;
-      border-radius:999px;
-      background:rgba(255,255,255,.8);
-      box-shadow:0 8px 18px rgba(84,52,153,.25);
-    }
-    .lang-btn{
-      border:none;border-radius:999px;
-      padding:5px 10px;font-size:11px;
-      cursor:pointer;background:transparent;
-      color:var(--text-muted);min-width:40px;
-    }
-    .lang-btn.active{
-      background:linear-gradient(135deg,#6a35dd,#9d6bff);
-      color:#fff;
-    }
+        .logo-row img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: contain;
+        }
 
-    main{margin-top:10px;}
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
 
-    .hero{
-      display:grid;
-      grid-template-columns:minmax(0,2.1fr) minmax(0,1.7fr);
-      gap:24px;align-items:stretch;margin-bottom:40px;
-    }
-    @media(max-width:840px){.hero{grid-template-columns:1fr;}}
+        .logo-text span:first-child {
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+        }
 
-    .hero-card{
-      background:var(--card-bg);
-      border-radius:var(--radius-xl);
-      padding:26px 24px 22px;
-      border:1px solid var(--border-soft);
-      box-shadow:var(--shadow-soft);
-      position:relative;overflow:hidden;
-    }
-    .hero-pill{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:5px 11px;border-radius:999px;
-      background:var(--primary-soft);
-      border:1px solid rgba(106,53,221,.3);
-      font-size:11px;color:var(--primary);
-      margin-bottom:14px;
-      transition:transform .25s ease,box-shadow .25s ease;
-    }
-    .hero-pill:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(106,53,221,.25);}
-    .hero-title{font-size:clamp(26px,3.1vw,32px);font-weight:800;margin-bottom:10px;}
-    .hero-title span.highlight{
-      background:linear-gradient(120deg,#c48d11,#f4cf73,#c99a35);
-      -webkit-background-clip:text;color:transparent;
-    }
-    .hero-subtitle{font-size:15px;color:var(--text-muted);margin-bottom:18px;}
-    .hero-cta-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px;}
+        .logo-text span:last-child {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
 
-    .btn-primary{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:9px 18px;border-radius:999px;border:none;
-      background:linear-gradient(135deg,#f4cf73,#c99a35,#ffe6a1);
-      color:#1f1306;font-size:14px;font-weight:700;
-      cursor:pointer;text-decoration:none;
-      box-shadow:0 12px 26px rgba(191,132,35,.4);
-      position:relative;overflow:hidden;
-      transition:transform .22s ease,box-shadow .22s ease;
-    }
-    .btn-primary span.icon{margin-left:6px;font-size:13px;}
-    .btn-primary::after{
-      content:"";position:absolute;inset:0;
-      background:radial-gradient(circle at 0 0,rgba(255,255,255,.7) 0,transparent 55%);
-      opacity:0;transition:opacity .3s ease;
-    }
-    .btn-primary:hover{
-      transform:translateY(-2px) scale(1.01);
-      box-shadow:0 16px 32px rgba(191,132,35,.48);
-    }
-    .btn-primary:hover::after{opacity:1;}
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 2.5rem;
+            align-items: center;
+            padding: 1rem 0 3rem;
+        }
 
-    .btn-ghost{
-      padding:8px 14px;border-radius:999px;
-      border:1px solid rgba(106,53,221,.25);
-      background:#f7f3ff;color:var(--primary);
-      font-size:12px;cursor:pointer;text-decoration:none;
-      transition:background .2s ease,transform .2s ease,box-shadow .2s ease;
-    }
-    .btn-ghost:hover{
-      background:#efe4ff;transform:translateY(-1px);
-      box-shadow:0 8px 18px rgba(106,53,221,.18);
-    }
+        @media (max-width: 840px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+        }
 
-    .mini-note{font-size:11px;color:#8a7ba7;}
+        .hero-main-title {
+            font-size: clamp(2rem, 3vw + 0.5rem, 2.8rem);
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
 
-    .countdown-card{
-      background:radial-gradient(circle at 0% 0%,#fff7df 0,transparent 55%),
-                 radial-gradient(circle at 100% 100%,#f1e7ff 0,transparent 55%),
-                 #fdfbff;
-      border-radius:var(--radius-xl);
-      padding:20px 18px 18px;
-      border:1px solid rgba(106,53,221,.12);
-      box-shadow:var(--shadow-soft);
-      position:relative;overflow:hidden;
-    }
-    .countdown-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px;}
-    .countdown-title{font-size:14px;font-weight:700;}
-    .countdown-sub{font-size:12px;color:var(--text-muted);}
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
 
-    .countdown-grid{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:8px;margin:12px 0;
-    }
-    .count-box{
-      background:#1d1435;border-radius:16px;padding:10px 6px;
-      text-align:center;border:1px solid rgba(255,255,255,.16);
-      color:#fefbff;box-shadow:0 10px 24px rgba(26,13,58,.4);
-      transition:transform .22s ease,box-shadow .22s ease;
-    }
-    .count-box:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(26,13,58,.6);}
-    .count-number{font-size:18px;font-weight:700;margin-bottom:4px;}
-    .count-label{font-size:11px;opacity:.85;}
+        .hero-highlight {
+            color: var(--secondary);
+            font-weight: 700;
+        }
 
-    .launch-note{font-size:11px;color:var(--text-muted);margin-top:4px;}
+        .badge-coming {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(108, 44, 146, 0.06);
+            border: 1px solid rgba(108, 44, 146, 0.15);
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 0.9rem;
+        }
 
-    .subscribe-box{margin-top:10px;padding-top:10px;border-top:1px solid rgba(106,53,221,.18);}
-    .subscribe-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px;}
-    .subscribe-row input[type="email"]{
-      flex:1 1 160px;min-width:0;
-      padding:9px 10px;border-radius:999px;
-      border:1px solid rgba(106,53,221,.25);
-      background:rgba(255,255,255,.9);
-      color:var(--text-main);font-size:12px;
-    }
-    .subscribe-row input::placeholder{color:rgba(93,78,121,.7);}
-    .subscribe-btn{
-      padding:8px 14px;border-radius:999px;border:none;cursor:pointer;
-      background:#6e3bff;color:#fff;font-size:12px;font-weight:600;
-      white-space:nowrap;
-      box-shadow:0 10px 22px rgba(69,36,150,.4);
-      transition:transform .2s ease,box-shadow .2s ease;
-    }
-    .subscribe-btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 14px 30px rgba(69,36,150,.55);
-    }
-    .subscribe-hint{font-size:10px;color:var(--text-muted);}
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--secondary);
+            box-shadow: 0 0 0 6px rgba(242, 167, 27, 0.2);
+        }
 
-    section{margin-bottom:36px;}
-    .section-card{
-      background:var(--card-alt-bg);
-      border-radius:var(--radius-xl);
-      border:1px solid var(--border-soft);
-      padding:20px 18px;
-      box-shadow:var(--shadow-soft);
-    }
-    .section-header{margin-bottom:14px;}
-    .section-title{font-size:18px;font-weight:700;margin-bottom:4px;}
-    .section-subtitle{font-size:13px;color:var(--text-muted);}
+        .hero-list {
+            list-style: none;
+            margin: 0.75rem 0 1.2rem;
+        }
 
-    .feature-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-      gap:14px;margin-top:10px;
-    }
-    .feature-item{
-      background:#fff;border-radius:16px;
-      padding:12px 10px;
-      border:1px solid rgba(106,53,221,.1);
-      box-shadow:0 9px 22px rgba(116,90,179,.15);
-      transition:transform .18s ease,box-shadow .18s ease;
-    }
-    .feature-item:hover{
-      transform:translateY(-3px);
-      box-shadow:0 14px 28px rgba(116,90,179,.22);
-    }
-    .feature-title{font-size:14px;font-weight:600;margin-bottom:5px;}
-    .feature-text{font-size:12px;color:var(--text-muted);}
+        .hero-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
 
-    .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
-    .pill{
-      padding:4px 10px;border-radius:999px;
-      border:1px solid rgba(106,53,221,.25);
-      font-size:11px;color:var(--text-muted);
-      background:#f3ecff;
-    }
+        .hero-list li span.icon {
+            margin-top: 0.25rem;
+            color: var(--secondary);
+        }
 
-    footer{margin-top:24px;font-size:11px;color:var(--text-muted);text-align:center;}
-    .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:4px;}
-    .footer-links a{color:var(--text-muted);text-decoration:none;font-size:11px;}
-    .footer-links a:hover{color:var(--primary);}
+        .hero-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 1.5rem 1.6rem;
+            box-shadow: 0 18px 50px rgba(29, 9, 56, 0.12);
+            border: 1px solid rgba(108, 44, 146, 0.06);
+        }
 
-    .hidden{display:none;}
+        .hero-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+        }
 
-    /* RTL tweaks when Arabic active */
-    .page.lang-ar main{direction:rtl;text-align:right;}
-    .page.lang-ar .subscribe-row input[type="email"]{direction:rtl;}
-  </style>
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 1.1rem;
+        }
+
+        @media (max-width: 520px) {
+            .countdown {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        .count-box {
+            background: linear-gradient(135deg, rgba(108, 44, 146, 0.08), rgba(242, 167, 27, 0.1));
+            border-radius: 16px;
+            padding: 0.6rem 0.4rem;
+            text-align: center;
+        }
+
+        .count-number {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .count-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .subscribe-text {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 520px) {
+            .form-row {
+                flex-direction: column;
+            }
+        }
+
+        .form-row input[type="email"] {
+            flex: 1;
+            padding: 0.7rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid rgba(108, 44, 146, 0.2);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-row input[type="email"]:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(242, 167, 27, 0.25);
+        }
+
+        .btn-primary {
+            border: none;
+            cursor: pointer;
+            padding: 0.75rem 1.3rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .note-small {
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .integrations-note {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-top: 0.6rem;
+        }
+
+        .features {
+            padding: 1rem 0 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: var(--primary);
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin-bottom: 1.3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 1rem;
+            border: 1px solid rgba(108, 44, 146, 0.06);
+            box-shadow: 0 6px 26px rgba(31, 9, 56, 0.06);
+        }
+
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(108, 44, 146, 0.08), rgba(242, 167, 27, 0.12));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-title {
+            font-size: 0.98rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-text {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        footer {
+            padding: 1.5rem 0 1.8rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--primary);
+        }
+    </style>
 </head>
 <body>
+<div class="page">
+    <div class="container">
+        <header>
+            <div class="logo-row">
+                <!-- اللوجو موجود في نفس المجلد باسم ilm-edu-logo.png -->
+                <img src="ilm-edu-logo.png" alt="ILM-EDU Logo" />
+                <div class="logo-text">
+                    <span>ILM-EDU</span>
+                    <span>منصة تعليمية متكاملة للمدارس وأولياء الأمور والطلاب</span>
+                </div>
+            </div>
+        </header>
 
-<div class="animated-bg"></div>
+        <main>
+            <section class="hero" aria-label="ILM-EDU Coming Soon">
+                <div>
+                    <div class="badge-coming">
+                        <span class="badge-dot"></span>
+                        <span>منصة ILM-EDU قادمة قريبًا ✨</span>
+                    </div>
 
-<div class="page lang-en" id="page-root">
-  <!-- HEADER -->
-  <header class="nav">
-    <div class="brand">
-      <!-- ✅ استخدم اسم ملف اللوجو الذي رفعته بدلاً من ilm-edu-logo.png إذا اختلف -->
-      <div class="brand-logo">
-        <img src="ilm-edu-logo.png" alt="ILM-EDU Logo">
-      </div>
-      <div>
-        <div class="brand-text-main" id="brand-title">
-          ILM-EDU Learning Platform
-        </div>
-        <div class="brand-text-sub" id="brand-sub">
-          Modern learning… with an Emirati Arabic touch
-        </div>
-      </div>
+                    <h1 class="hero-main-title">
+                        تعليم ذكي، تقارير دقيقة، ومواءمة كاملة مع المنهاج الإماراتي.
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        <span class="hero-highlight">ILM-EDU</span> تربط بين
+                        <strong>المدرسة</strong>،
+                        <strong>المعلم</strong>،
+                        <strong>الطالب</strong>،
+                        و<strong>ولي الأمر</strong>
+                        في تجربة تعلم رقمية تدعم المهارات المستقبلية وقيم الهوية الوطنية.
+                    </p>
+
+                    <ul class="hero-list">
+                        <li>
+                            <span class="icon">✅</span>
+                            <span>مواءمة دقيقة 100% لمعايير المنهاج الإماراتي.</span>
+                        </li>
+                        <li>
+                            <span class="icon">✅</span>
+                            <span>محتوى يدعم مهارات القرن 21 وقيم الهوية الوطنية.</span>
+                        </li>
+                        <li>
+                            <span class="icon">✅</span>
+                            <span>نظام تقييم ذكي وتحليلات تفصيلية Teacher–Student Analytics.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <aside class="hero-card">
+                    <h2 class="hero-card-title">Coming Soon – إطلاق ILM-EDU</h2>
+
+                    <!-- عداد تنازلي -->
+                    <div class="countdown" aria-label="العد التنازلي لإطلاق المنصة">
+                        <div class="count-box">
+                            <div id="days" class="count-number">00</div>
+                            <div class="count-label">يوم</div>
+                        </div>
+                        <div class="count-box">
+                            <div id="hours" class="count-number">00</div>
+                            <div class="count-label">ساعة</div>
+                        </div>
+                        <div class="count-box">
+                            <div id="minutes" class="count-number">00</div>
+                            <div class="count-label">دقيقة</div>
+                        </div>
+                        <div class="count-box">
+                            <div id="seconds" class="count-number">00</div>
+                            <div class="count-label">ثانية</div>
+                        </div>
+                    </div>
+
+                    <p class="subscribe-text">
+                        اترك بريدك الإلكتروني ليصلك إشعار عند الإطلاق الرسمي، مع
+                        إمكانية الحصول على عروض خاصة للمدارس وأولياء الأمور الأوائل.
+                    </p>
+
+                    <!-- نموذج Mailchimp مبسط مع نفس action والـ hidden field -->
+                    <form id="subscribe-form"
+                          class="subscribe-form validate"
+                          action="https://ilm-edu.us8.list-manage.com/subscribe/post?u=5a62b975c387dc430e16013ad&amp;id=9df49a4a38&amp;f_id=00c023e0f0"
+                          method="post"
+                          target="_blank"
+                          novalidate>
+                        <div class="form-row">
+                            <input type="email"
+                                   name="EMAIL"
+                                   id="mce-EMAIL"
+                                   class="required email"
+                                   placeholder="أدخل بريدك الإلكتروني"
+                                   required />
+                            <button type="submit"
+                                    name="subscribe"
+                                    id="mc-embedded-subscribe"
+                                    class="btn-primary">
+                                اشترك الآن
+                            </button>
+                        </div>
+
+                        <!-- حقل الحماية من البوتات من كود Mailchimp -->
+                        <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                            <input type="text"
+                                   name="b_5a62b975c387dc430e16013ad_9df49a4a38"
+                                   tabindex="-1"
+                                   value="">
+                        </div>
+
+                        <div class="note-small">
+                            لن نرسل رسائل مزعجة. يمكنك إلغاء الاشتراك في أي وقت.
+                        </div>
+                    </form>
+
+                    <p class="integrations-note">
+                        متكامل مع: Mailchimp · Brevo · أدوات التسويق بالبريد الإلكتروني
+                    </p>
+                </aside>
+            </section>
+
+            <section class="features">
+                <h2 class="section-title">لماذا ILM-EDU؟</h2>
+                <p class="section-subtitle">
+                    منصة تعليمية مصممة خصيصًا للمدارس في دولة الإمارات، تجمع بين المحتوى
+                    عالي الجودة، والتقارير الذكية، وتجربة تعلّم جذابة للطلاب.
+                </p>
+
+                <div class="features-grid">
+                    <article class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3 class="feature-title">مواءمة 100% مع المنهاج الإماراتي</h3>
+                        <p class="feature-text">
+                            كل درس وكل نشاط مبني على مخرجات تعلم واضحة
+                            ومتوافقة مع معايير وزارة التربية والتعليم والهيئات التعليمية في الدولة.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon">🌟</div>
+                        <h3 class="feature-title">مهارات مستقبلية وهوية وطنية</h3>
+                        <p class="feature-text">
+                            أنشطة تركز على التفكير النقدي، حلّ المشكلات، والتعاون،
+                            مع إبراز مستمر لقيم المجتمع الإماراتي وهويته الوطنية.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">نظام تقييم ذكي وتحليلات متقدمة</h3>
+                        <p class="feature-text">
+                            Teacher–Student Analytics لقياس نمو الطالب،
+                            تحديد فجوات التعلم، وتقديم تقارير تفصيلية تدعم تقييم من أجل التعلم.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon">👨‍🏫</div>
+                        <h3 class="feature-title">لوحة تحكم للمعلم</h3>
+                        <p class="feature-text">
+                            خطط دروس جاهزة، بنوك أسئلة، واجبات رقمية، وتقارير فورية
+                            لتسهيل متابعة كل فصل دراسي بدقائق قليلة يوميًا.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon">👨‍👩‍👦</div>
+                        <h3 class="feature-title">متابعة سهلة لولي الأمر</h3>
+                        <p class="feature-text">
+                            واجهة بسيطة لولي الأمر لمتابعة أداء الأبناء،
+                            التعرف على نقاط القوة، واستقبال اقتراحات عملية للدعم في البيت.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon">🏫</div>
+                        <h3 class="feature-title">جاهزة للتقارير والاعتماد</h3>
+                        <p class="feature-text">
+                            تقارير تلخص أداء المدرسة والصفوف والمواد،
+                            وتساعد الإدارات المدرسية في الاستعداد للزيارات والاعتماد الأكاديمي.
+                        </p>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            © <span id="year"></span> ILM-EDU. جميع الحقوق محفوظة.  
+            موقع تجريبي – صفحة هبوط قيد الإطلاق.
+        </footer>
     </div>
-
-    <div class="nav-right">
-      <div class="nav-tag" id="nav-tag">
-        Official launch in February 2026 (in shaa Allah)
-      </div>
-
-      <div class="lang-switch">
-        <button class="lang-btn active" data-lang-btn="en">EN</button>
-        <button class="lang-btn" data-lang-btn="ar">عربي</button>
-      </div>
-    </div>
-  </header>
-
-  <!-- MAIN CONTENT - ENGLISH -->
-  <main id="lang-en">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-card">
-        <div class="hero-pill">
-          🚀 Coming soon to schools in the UAE
-        </div>
-        <h1 class="hero-title">
-          A <span class="highlight">smart</span> learning platform that empowers teachers
-          and raises student achievement.
-        </h1>
-        <p class="hero-subtitle">
-          ILM-EDU is a comprehensive digital platform for schools, combining interactive videos,
-          question banks, smart reports and tracking tools… all in one place aligned with the UAE curriculum.
-        </p>
-
-        <div class="hero-cta-row">
-          <a class="btn-primary"
-             href="mailto:info@ilm-edu.ae?subject=Early%20interest%20in%20ILM-EDU">
-            Join the early interest list
-            <span class="icon">✉️</span>
-          </a>
-          <a class="btn-ghost" href="#about-en">
-            Learn more about our vision
-          </a>
-        </div>
-        <div class="mini-note">
-          Designed for schools, teachers and parents in the UAE first, with plans to expand across the region.
-        </div>
-      </div>
-
-      <aside class="countdown-card">
-        <div class="countdown-header">
-          <div>
-            <div class="countdown-title">Countdown to launch</div>
-            <div class="countdown-sub">
-              First release for schools in February 2026, in shaa Allah.
-            </div>
-          </div>
-        </div>
-
-        <div class="countdown-grid">
-          <div class="count-box">
-            <div class="count-number" data-days></div>
-            <div class="count-label">Days</div>
-          </div>
-          <div class="count-box">
-            <div class="count-number" data-hours></div>
-            <div class="count-label">Hours</div>
-          </div>
-          <div class="count-box">
-            <div class="count-number" data-minutes></div>
-            <div class="count-label">Minutes</div>
-          </div>
-          <div class="count-box">
-            <div class="count-number" data-seconds></div>
-            <div class="count-label">Seconds</div>
-          </div>
-        </div>
-
-        <div class="launch-note" data-launch-note>
-          Reserve a spot for your school to be among the first to access the full experience and free teacher training.
-        </div>
-
-<div class="subscribe-box">
-  <form
-  class="subscribe-row"
-  action="https://ilm-edu.us8.list-manage.com/subscribe/post?u=5a62b975c387dc430e16013ad&amp;id=9df49a4a38&amp;f_id=00c023e0f0"
-  method="post"
-  target="mc-iframe"
-  onsubmit="showPopup()"
->
-    <input
-      type="email"
-      name="EMAIL"
-      class="required email"
-      placeholder="Type your email to receive updates"
-      required
-    >
-
-    <!-- حقل مخفي لمنع الروبوتات - لازم يفضل كما هو -->
-    <div style="position: absolute; left: -5000px;" aria-hidden="true">
-      <input type="text" name="b_5a62b975c387dc430e16013ad_9df49a4a38" tabindex="-1" value="">
-    </div>
-
-    <button type="submit" class="subscribe-btn">
-      Register your interest
-    </button>
-  </form>
-
-<form
-  class="subscribe-row"
-  action="https://ilm-edu.us8.list-manage.com/subscribe/post?u=5a62b975c387dc430e16013ad&amp;id=9df49a4a38&amp;f_id=00c023e0f0"
-  method="post"
-  target="mc-iframe"
-  onsubmit="showPopup()"
->
-  ...
-</form>
-<iframe name="mc-iframe" style="display:none;"></iframe>
-<div class="subscribe-hint">
-  * Your email will be added to the ILM-EDU pre-launch list via Mailchimp.
-</div>
-</div>
-      </aside>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about-en">
-      <div class="section-card">
-        <div class="section-header">
-          <h2 class="section-title">What is ILM-EDU?</h2>
-          <p class="section-subtitle">
-            ILM-EDU is a carefully designed digital learning platform for schools in the UAE,
-            supporting students’ daily learning journey from Grade 1 to Grade 5 in the first phase,
-            with plans to expand to higher grades.
-          </p>
-        </div>
-
-        <div class="feature-grid">
-          <div class="feature-item">
-            <div class="feature-title">For school leadership</div>
-            <div class="feature-text">
-              Ready-made dashboards, instant reports on student and teacher performance,
-              and indicators that support inspection readiness and official reporting.
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-title">For teachers</div>
-            <div class="feature-text">
-              Ready lessons, short videos, question banks, interactive worksheets
-              and tracking tools that save preparation time and increase lesson impact.
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-title">For students</div>
-            <div class="feature-text">
-              Visually engaging learning, activities, educational games and instant questions that
-              help them understand before memorising.
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-title">For parents</div>
-            <div class="feature-text">
-              Simple access to progress, lesson objectives and home activities
-              that enable them to support their children without stress.
-            </div>
-          </div>
-        </div>
-
-        <div class="pill-row">
-          <span class="pill">Aligned with UAE curriculum standards</span>
-          <span class="pill">Smart dashboards</span>
-          <span class="pill">Integration with school systems</span>
-          <span class="pill">Full teacher training</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section>
-      <div class="section-card">
-        <div class="section-header">
-          <h2 class="section-title">What does ILM-EDU offer your school?</h2>
-          <p class="section-subtitle">
-            We are building a practical, classroom-focused platform that is tested with partner schools
-            and directly connected to teacher and student needs.
-          </p>
-        </div>
-
-        <div class="feature-grid">
-          <div class="feature-item">
-            <div class="feature-title">High-quality interactive content</div>
-            <div class="feature-text">
-              Short videos, infographics, before/during/after questions and activities
-              that build listening, speaking, reading and writing skills.
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-title">Ready question banks</div>
-            <div class="feature-text">
-              Multiple question types (MCQ, True/False, drag-and-drop, matching…)
-              ready for homework, quizzes and exams.
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-title">Instant analytics & reporting</div>
-            <div class="feature-text">
-              Mastery percentages, strengths and gaps, class comparisons,
-              and exports that match regulatory requirements.
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-title">Seamless school integration</div>
-            <div class="feature-text">
-              Adapts to different school systems, with the option to connect to
-              Single Sign-On solutions when needed.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact-en">
-      <div class="section-card">
-        <div class="section-header">
-          <h2 class="section-title">Would you like your school to be among the first?</h2>
-          <p class="section-subtitle">
-            We are currently piloting early versions of the platform with a limited number of schools.
-            If your school would like to join, we would be happy to connect.
-          </p>
-        </div>
-
-        <div class="hero-cta-row" style="margin-top:8px;">
-          <a class="btn-primary"
-             href="mailto:schools@ilm-edu.ae?subject=School%20interest%20in%20ILM-EDU%20pilot">
-            Contact us for school partnerships
-            <span class="icon">🏫</span>
-          </a>
-          <a class="btn-ghost"
-             href="mailto:info@ilm-edu.ae?subject=General%20inquiry%20about%20ILM-EDU">
-            General inquiry
-          </a>
-        </div>
-
-        <div class="mini-note" style="margin-top:10px;">
-          We provide intro material, a demo and initial free training for school teams
-          before the official launch.
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- MAIN CONTENT - ARABIC -->
-  <main id="lang-ar" class="hidden">
-    <section class="hero">
-      <div class="hero-card">
-        <div class="hero-pill">
-          🚀 قادمة قريبًا إلى مدارس الإمارات
-        </div>
-        <h1 class="hero-title">
-          منصة تعليمية <span class="highlight">ذكية</span> تدعم المعلّم
-          وترفع مستوى تحصيل الطالب.
-        </h1>
-        <p class="hero-subtitle">
-          ILM-EDU منصة رقمية متكاملة للمدارس، تجمع بين الفيديوهات التفاعلية،
-          بنوك الأسئلة، التقارير الذكية، وأدوات المتابعة… في مكان واحد مخصص
-          للمناهج الإماراتية.
-        </p>
-
-        <div class="hero-cta-row">
-          <a class="btn-primary"
-             href="mailto:info@ilm-edu.ae?subject=اشتراك%20مبكر%20في%20منصة%20ILM-EDU">
-            انضم إلى قائمة المهتمين
-            <span class="icon">✉️</span>
-          </a>
-          <a class="btn-ghost" href="#about-ar">
-            تعرّف على رؤية المنصة
-          </a>
-        </div>
-        <div class="mini-note">
-          مخصصة للمدارس، المعلمين، وأولياء الأمور في دولة الإمارات أولًا، مع خطة
-          للتوسع عربيًا ودوليًا.
-        </div>
-      </div>
-
-      <aside class="countdown-card">
-        <div class="countdown-header">
-          <div>
-            <div class="countdown-title">العدّ التنازلي للإطلاق</div>
-            <div class="countdown-sub">
-              الإصدار الأول للمدارس في فبراير 2026 بإذن الله.
-            </div>
-          </div>
-        </div>
-
-        <div class="countdown-grid">
-          <div class="count-box">
-            <div class="count-number" data-days></div>
-            <div class="count-label">أيام</div>
-          </div>
-          <div class="count-box">
-            <div class="count-number" data-hours></div>
-            <div class="count-label">ساعات</div>
-          </div>
-          <div class="count-box">
-            <div class="count-number" data-minutes></div>
-            <div class="count-label">دقائق</div>
-          </div>
-          <div class="count-box">
-            <div class="count-number" data-seconds></div>
-            <div class="count-label">ثوانٍ</div>
-          </div>
-        </div>
-
-        <div class="launch-note" data-launch-note>
-          احجز مكان مدرستك ضمن المدارس الأولى التي تحصل على تجربة كاملة وتدريب مجاني للمعلمين.
-        </div>
-
-<div class="subscribe-box">
-  <form
-    class="subscribe-row"
-    action="https://ilm-edu.us8.list-manage.com/subscribe/post?u=5a62b975c387dc430e16013ad&amp;id=9df49a4a38&amp;f_id=00c023e0f0"
-    method="post"
-    target="mc-iframe"
-  >
-    <input
-      type="email"
-      name="EMAIL"
-      class="required email"
-      placeholder="اكتب بريدك الإلكتروني ليصلك كل جديد"
-      style="direction:rtl;"
-      required
-    >
-
-    <!-- حقل مخفي لمنع الروبوتات - لازم يفضل كما هو -->
-    <div style="position: absolute; left: -5000px;" aria-hidden="true">
-      <input type="text" name="b_5a62b975c387dc430e16013ad_9df49a4a38" tabindex="-1" value="">
-    </div>
-
-    <button type="submit" class="subscribe-btn">
-      سجّل اهتمامك
-    </button>
-  </form>
-<form
-  class="subscribe-row"
-  action="https://ilm-edu.us8.list-manage.com/subscribe/post?u=5a62b975c387dc430e16013ad&amp;id=9df49a4a38&amp;f_id=00c023e0f0"
-  method="post"
-  target="mc-iframe"
-  onsubmit="showPopup()"
->
-
-  <div class="subscribe-hint">
-    * سيتم إضافة بريدك إلى قائمة الإطلاق التجريبي لمنصة "علم" عبر Mailchimp.
-  </div>
-</div>
-      </aside>
-    </section>
-
-    <!-- ABOUT AR -->
-    <section id="about-ar">
-      <div class="section-card">
-        <div class="section-header">
-          <h2 class="section-title">ما هي منصة علم – ILM-EDU؟</h2>
-          <p class="section-subtitle">
-            منصة تعليمية رقمية تُبنى بعناية لتخدم المدارس في دولة الإمارات،
-            وتدعم رحلة التعلّم اليومي للطالب من الصف الأول حتى الصف الخامس
-            (في المرحلة الأولى)، مع خطة للتوسع في المراحل الأعلى.
-          </p>
-        </div>
-
-        <div class="feature-grid">
-          <div class="feature-item">
-            <div class="feature-title">للإدارة المدرسية</div>
-            <div class="feature-text">
-              لوحات تحكم جاهزة، تقارير فورية عن أداء الطلاب والمعلمين،
-              ومؤشرات تساعد في الاستعداد للزيارات الرقابية والتقارير الرسمية.
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-title">للمعلّم</div>
-            <div class="feature-text">
-              دروس جاهزة، فيديوهات قصيرة، بنوك أسئلة، أوراق عمل تفاعلية،
-              وأدوات متابعة تُوفّر وقت التحضير وتزيد أثر الحصة.
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-title">للطالب</div>
-            <div class="feature-text">
-              تجربة تعلّم ممتعة بصريًا، أنشطة، ألعاب تعليمية، وأسئلة فورية
-              تساعده على الفهم قبل الحفظ.
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-title">لولي الأمر</div>
-            <div class="feature-text">
-              متابعة سهلة لتقدم الأبناء، فهم لأهداف الدرس، وأنشطة منزلية
-              بسيطة تساعده على دعم أبنائه دون ضغط أو تعقيد.
-            </div>
-          </div>
-        </div>
-
-        <div class="pill-row">
-          <span class="pill">مناهج متوافقة مع معايير الإمارات</span>
-          <span class="pill">لوحات تحكم ذكية</span>
-          <span class="pill">تكامل مع المنصات المدرسية</span>
-          <span class="pill">تدريب كامل للمعلمين</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- FEATURES AR -->
-    <section>
-      <div class="section-card">
-        <div class="section-header">
-          <h2 class="section-title">ماذا تقدّم ILM-EDU لمدرستك؟</h2>
-          <p class="section-subtitle">
-            نعمل على بناء منصة عملية واقعية، تُختبر مع المدارس خطوة بخطوة،
-            وترتبط مباشرة بحاجات المعلم والطالب في الحصة اليومية.
-          </p>
-        </div>
-
-        <div class="feature-grid">
-          <div class="feature-item">
-            <div class="feature-title">محتوى تفاعلي عالي الجودة</div>
-            <div class="feature-text">
-              فيديوهات قصيرة، إنفوجرافيك، أسئلة قبل/أثناء/بعد الدرس، وأنشطة
-              تدعم مهارات الاستماع، التحدث، القراءة، والكتابة.
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-title">بنوك أسئلة جاهزة</div>
-            <div class="feature-text">
-              أسئلة متنوعة (اختيار من متعدد، صح وخطأ، سحب وإفلات، مطابقة...)
-              قابلة للاستخدام في الواجبات، الاختبارات القصيرة، والامتحانات.
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-title">تقارير وتحليلات فورية</div>
-            <div class="feature-text">
-              نسب إتقان، نقاط قوة وضعف، مقارنة بين الفصول، وتصدير تقارير
-              بصيغة تناسب متطلبات الجهات الرقابية.
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-title">تكامل مع رحلة التعلّم في المدرسة</div>
-            <div class="feature-text">
-              تكيّف مع أنظمة المدارس المختلفة، وإمكانية ربط المنصة بحسابات
-              الدخول الموحد Single Sign-On عند الحاجة.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT AR -->
-    <section id="contact-ar">
-      <div class="section-card">
-        <div class="section-header">
-          <h2 class="section-title">هل ترغب أن تكون مدرستك من أوائل المدارس المشاركة؟</h2>
-          <p class="section-subtitle">
-            نعمل الآن على تجربة النسخ الأولى من المنصة مع مجموعة محدودة من المدارس.
-            إذا كانت مدرستك ترغب في الانضمام، يسعدنا تواصلكم.
-          </p>
-        </div>
-
-        <div class="hero-cta-row" style="margin-top:8px;">
-          <a class="btn-primary"
-             href="mailto:schools@ilm-edu.ae?subject=رغبة%20في%20الانضمام%20لتجربة%20منصة%20ILM-EDU">
-            تواصُل للمدارس والمؤسسات التعليمية
-            <span class="icon">🏫</span>
-          </a>
-          <a class="btn-ghost"
-             href="mailto:info@ilm-edu.ae?subject=استفسار%20عام%20عن%20منصة%20ILM-EDU">
-            استفسار عام
-          </a>
-        </div>
-
-        <div class="mini-note" style="margin-top:10px;">
-          سيتم توفير مواد تعريفية، عرض توضيحي Demo، وتدريب أولي مجاني لفريق المدرسة
-          قبل الإطلاق الرسمي.
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="footer-links">
-      <a href="#about-en" id="footer-link-about">About / عن المنصة</a>
-      <a href="#contact-en" id="footer-link-contact">Contact / تواصل</a>
-      <a href="mailto:info@ilm-edu.ae">info@ilm-edu.ae</a>
-    </div>
-    <div id="footer-text">
-      © 2026 All rights reserved – ILM-EDU Learning Platform
-    </div>
-  </footer>
 </div>
 
 <script>
-  // ===== Countdown =====
-  const launchDate = new Date("2026-02-01T00:00:00+04:00").getTime();
+    // ---------- Countdown Timer ----------
+    // تاريخ الإطلاق: 1 فبراير 2026
+    const launchDate = new Date("2026-02-01T00:00:00").getTime();
 
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const diff = launchDate - now;
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = launchDate - now;
 
-    const dayEls = document.querySelectorAll("[data-days]");
-    const hourEls = document.querySelectorAll("[data-hours]");
-    const minuteEls = document.querySelectorAll("[data-minutes]");
-    const secondEls = document.querySelectorAll("[data-seconds]");
-    const noteEls = document.querySelectorAll("[data-launch-note]");
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
 
-    if (diff <= 0) {
-      dayEls.forEach(el => el.textContent = "0");
-      hourEls.forEach(el => el.textContent = "0");
-      minuteEls.forEach(el => el.textContent = "0");
-      secondEls.forEach(el => el.textContent = "0");
-      noteEls.forEach(el => {
-        if (document.documentElement.lang === "ar") {
-          el.textContent = "تم إطلاق النسخة الأولى من المنصة. يسعدنا تواصلكم للانضمام.";
-        } else {
-          el.textContent = "The first version has been launched. We would be happy to connect with your school.";
+        if (distance <= 0) {
+            daysEl.textContent = "00";
+            hoursEl.textContent = "00";
+            minutesEl.textContent = "00";
+            secondsEl.textContent = "00";
+            return;
         }
-      });
-      return;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        daysEl.textContent = String(days).padStart(2, "0");
+        hoursEl.textContent = String(hours).padStart(2, "0");
+        minutesEl.textContent = String(minutes).padStart(2, "0");
+        secondsEl.textContent = String(seconds).padStart(2, "0");
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 
-    dayEls.forEach(el => el.textContent = days);
-    hourEls.forEach(el => el.textContent = hours.toString().padStart(2,"0"));
-    minuteEls.forEach(el => el.textContent = minutes.toString().padStart(2,"0"));
-    secondEls.forEach(el => el.textContent = seconds.toString().padStart(2,"0"));
-  }
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-  // ===== Language switcher (FIXED) =====
-  const pageRoot = document.getElementById("page-root");
-  const langEnMain = document.getElementById("lang-en");
-  const langArMain = document.getElementById("lang-ar");
-  const langBtns = document.querySelectorAll("[data-lang-btn]");
-
-  const brandTitle = document.getElementById("brand-title");
-  const brandSub   = document.getElementById("brand-sub");
-  const navTag     = document.getElementById("nav-tag");
-  const footerText = document.getElementById("footer-text");
-  const footerLinkAbout   = document.getElementById("footer-link-about");
-  const footerLinkContact = document.getElementById("footer-link-contact");
-
-  function setLanguage(lang) {
-    if (lang === "ar") {
-      document.documentElement.lang = "ar";
-      document.documentElement.dir  = "rtl";
-      pageRoot.classList.remove("lang-en");
-      pageRoot.classList.add("lang-ar");
-      langEnMain.classList.add("hidden");
-      langArMain.classList.remove("hidden");
-
-      brandTitle.textContent = "منصة علم التعليمية – ILM-EDU";
-      brandSub.textContent   = "تعليم عصري… بلمسة عربية إماراتية";
-      navTag.textContent     = "إطلاق رسمي في فبراير 2026 بإذن الله";
-      footerText.textContent = "© 2026 جميع الحقوق محفوظة لمنصة علم التعليمية – ILM-EDU";
-      footerLinkAbout.setAttribute("href","#about-ar");
-      footerLinkContact.setAttribute("href","#contact-ar");
-      footerLinkAbout.textContent   = "عن المنصة";
-      footerLinkContact.textContent = "تواصل معنا";
-    } else {
-      document.documentElement.lang = "en";
-      document.documentElement.dir  = "ltr";
-      pageRoot.classList.remove("lang-ar");
-      pageRoot.classList.add("lang-en");
-      langArMain.classList.add("hidden");
-      langEnMain.classList.remove("hidden");
-
-      brandTitle.textContent = "ILM-EDU Learning Platform";
-      brandSub.textContent   = "Modern learning… with an Emirati Arabic touch";
-      navTag.textContent     = "Official launch in February 2026 (in shaa Allah)";
-      footerText.textContent = "© 2026 All rights reserved – ILM-EDU Learning Platform";
-      footerLinkAbout.setAttribute("href","#about-en");
-      footerLinkContact.setAttribute("href","#contact-en");
-      footerLinkAbout.textContent   = "About";
-      footerLinkContact.textContent = "Contact";
-    }
-
-    // حدِّث حالة الأزرار
-    langBtns.forEach(btn => {
-      if (btn.getAttribute("data-lang-btn") === lang) {
-        btn.classList.add("active");
-      } else {
-        btn.classList.remove("active");
-      }
-    });
-  }
-
-  // ✅ ربط الأزرار بالدالة (ده اللي كان ناقص)
-  langBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const lang = btn.getAttribute("data-lang-btn");
-      setLanguage(lang);
-    });
-  });
-
-  // اللغة الافتراضية: إنجليزي
-  setLanguage("en");
-</script>
-<!-- Popup رسالة النجاح المشتركة للنسخة العربية والإنجليزية -->
-<div id="popup-success" 
-     style="
-        display:none;
-        position:fixed;
-        top:50%;
-        left:50%;
-        transform:translate(-50%, -50%);
-        background:#ffffff;
-        padding:20px 30px;
-        border-radius:16px;
-        box-shadow:0 10px 30px rgba(0,0,0,.25);
-        z-index:9999;
-        font-size:16px;
-        text-align:center;
-    ">
-    🎉 تم التسجيل بنجاح!<br>
-    ✅ تم إضافة بريدك الإلكتروني إلى قائمة الإطلاق لمنصة ILM-EDU.<br>
-    <span style="font-size:13px;color:#666;">
-      🎓 Thank you! Your email has been added to the ILM-EDU prelaunch list.
-    </span>
-    <br><br>
-    <button onclick="closePopup()" style="
-        margin-top:8px;
-        padding:8px 18px;
-        border:none;
-        border-radius:999px;
-        cursor:pointer;
-        background:#6e3bff;
-        color:#fff;
-        font-weight:600;
-        font-size:13px;
-    ">
-        حسنًا / OK
-    </button>
-</div>
-
-<script>
-  function showPopup() {
-    // نُظهر رسالة النجاح فور إرسال الفورم
-    var popup = document.getElementById("popup-success");
-    if (popup) {
-      popup.style.display = "block";
-    }
-  }
-
-  function closePopup() {
-    // إخفاء الرسالة
-    var popup = document.getElementById("popup-success");
-    if (popup) {
-      popup.style.display = "none";
-    }
-
-    // مسح حقول الإيميل في جميع نماذج الاشتراك
-    var emailInputs = document.querySelectorAll('.subscribe-box input[name="EMAIL"]');
-    emailInputs.forEach(function(input) {
-      input.value = "";
-    });
-  }
+    // سنة الفوتر
+    document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
