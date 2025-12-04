@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <title>منصة علم التعليمية – ILM-EDU</title>
+  <title>ILM-EDU Learning Platform</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 
@@ -22,456 +22,503 @@
       --shadow-soft: 0 18px 40px rgba(72, 39, 135, 0.22);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: "Tajawal", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-mid) 55%, #2a133f 100%);
-      color: var(--text-main);
-      line-height: 1.6;
-      overflow-x: hidden;
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:"Tajawal",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:linear-gradient(180deg,var(--bg-light) 0%,var(--bg-mid) 55%,#2a133f 100%);
+      color:var(--text-main);
+      line-height:1.6;
+      overflow-x:hidden;
     }
 
-    /* خلفية خفيفة متحركة */
-    .animated-bg {
-      position: fixed;
-      inset: 0;
+    .animated-bg{
+      position:fixed;inset:0;
       background:
-        radial-gradient(circle at 10% 0%, rgba(255,255,255,0.9) 0, transparent 50%),
-        radial-gradient(circle at 80% 0%, rgba(233,221,255,0.9) 0, transparent 55%),
-        radial-gradient(circle at 20% 100%, rgba(255,240,210,0.85) 0, transparent 55%);
-      mix-blend-mode: screen;
-      opacity: 0.45;
-      pointer-events: none;
-      z-index: -1;
-      animation: softFloat 18s ease-in-out infinite;
+        radial-gradient(circle at 10% 0%,rgba(255,255,255,0.9) 0,transparent 50%),
+        radial-gradient(circle at 80% 0%,rgba(233,221,255,0.9) 0,transparent 55%),
+        radial-gradient(circle at 20% 100%,rgba(255,240,210,0.85) 0,transparent 55%);
+      mix-blend-mode:screen;
+      opacity:.45;pointer-events:none;z-index:-1;
+      animation:softFloat 18s ease-in-out infinite;
+    }
+    @keyframes softFloat{
+      0%,100%{transform:translate3d(0,0,0);}
+      50%{transform:translate3d(0,10px,0);}
     }
 
-    @keyframes softFloat {
-      0%   { transform: translate3d(0,0,0); }
-      50%  { transform: translate3d(0,10px,0); }
-      100% { transform: translate3d(0,0,0); }
+    .page{max-width:1120px;margin:0 auto;padding:24px 18px 60px;}
+
+    header.nav{
+      display:flex;justify-content:space-between;align-items:center;
+      gap:16px;padding:8px 0 22px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;}
+    .brand-logo{
+      width:44px;height:44px;border-radius:16px;
+      background:radial-gradient(circle at 30% 20%,#fff 0,#f4e8ff 18%,#6a35dd 60%,#2b1446 100%);
+      box-shadow:0 12px 28px rgba(57,25,125,.45);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:800;font-size:22px;color:#fdf9ff;
+      animation:logoFloat 4.5s ease-in-out infinite;
+    }
+    @keyframes logoFloat{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-4px);}
+    }
+    .brand-text-main{font-weight:700;font-size:20px;}
+    .brand-text-sub{font-size:12px;color:var(--text-muted);}
+
+    .nav-right{
+      display:flex;align-items:center;gap:10px;
     }
 
-    .page {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 24px 18px 60px;
+    .nav-tag{
+      padding:7px 16px;border-radius:999px;
+      border:1px solid rgba(201,154,53,.45);
+      font-size:12px;color:#614313;
+      background:linear-gradient(120deg,#fff6da,#ffe7a3,#fdf2d1);
+      box-shadow:0 10px 24px rgba(191,132,35,.25);
+      animation:pulseGlow 3.2s ease-in-out infinite;
+      white-space:nowrap;
+    }
+    @keyframes pulseGlow{
+      0%,100%{box-shadow:0 10px 24px rgba(191,132,35,.25);}
+      50%{box-shadow:0 12px 30px rgba(191,132,35,.45);}
     }
 
-    header.nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      padding: 8px 0 22px;
+    .lang-switch{
+      display:flex;align-items:center;gap:6px;
+      padding:3px;
+      border-radius:999px;
+      background:rgba(255,255,255,.8);
+      box-shadow:0 8px 18px rgba(84,52,153,.25);
     }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .lang-btn{
+      border:none;border-radius:999px;
+      padding:5px 10px;font-size:11px;
+      cursor:pointer;background:transparent;
+      color:var(--text-muted);min-width:40px;
     }
-    .brand-logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 16px;
-      background: radial-gradient(circle at 30% 20%, #ffffff 0, #f4e8ff 18%, #6a35dd 60%, #2b1446 100%);
-      box-shadow: 0 12px 28px rgba(57, 25, 125, 0.45);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 22px;
-      color: #fdf9ff;
-      animation: logoFloat 4.5s ease-in-out infinite;
-    }
-    @keyframes logoFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
+    .lang-btn.active{
+      background:linear-gradient(135deg,#6a35dd,#9d6bff);
+      color:#fff;
     }
 
-    .brand-text-main {
-      font-weight: 700;
-      font-size: 20px;
+    main{margin-top:10px;}
+
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,2.1fr) minmax(0,1.7fr);
+      gap:24px;align-items:stretch;margin-bottom:40px;
     }
-    .brand-text-sub {
-      font-size: 12px;
-      color: var(--text-muted);
+    @media(max-width:840px){.hero{grid-template-columns:1fr;}}
+
+    .hero-card{
+      background:var(--card-bg);
+      border-radius:var(--radius-xl);
+      padding:26px 24px 22px;
+      border:1px solid var(--border-soft);
+      box-shadow:var(--shadow-soft);
+      position:relative;overflow:hidden;
+    }
+    .hero-pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:5px 11px;border-radius:999px;
+      background:var(--primary-soft);
+      border:1px solid rgba(106,53,221,.3);
+      font-size:11px;color:var(--primary);
+      margin-bottom:14px;
+      transition:transform .25s ease,box-shadow .25s ease;
+    }
+    .hero-pill:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(106,53,221,.25);}
+    .hero-title{font-size:clamp(26px,3.1vw,32px);font-weight:800;margin-bottom:10px;}
+    .hero-title span.highlight{
+      background:linear-gradient(120deg,#c48d11,#f4cf73,#c99a35);
+      -webkit-background-clip:text;color:transparent;
+    }
+    .hero-subtitle{font-size:15px;color:var(--text-muted);margin-bottom:18px;}
+    .hero-cta-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px;}
+
+    .btn-primary{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:9px 18px;border-radius:999px;border:none;
+      background:linear-gradient(135deg,#f4cf73,#c99a35,#ffe6a1);
+      color:#1f1306;font-size:14px;font-weight:700;
+      cursor:pointer;text-decoration:none;
+      box-shadow:0 12px 26px rgba(191,132,35,.4);
+      position:relative;overflow:hidden;
+      transition:transform .22s ease,box-shadow .22s ease;
+    }
+    .btn-primary span.icon{margin-left:6px;font-size:13px;}
+    .btn-primary::after{
+      content:"";position:absolute;inset:0;
+      background:radial-gradient(circle at 0 0,rgba(255,255,255,.7) 0,transparent 55%);
+      opacity:0;transition:opacity .3s ease;
+    }
+    .btn-primary:hover{
+      transform:translateY(-2px) scale(1.01);
+      box-shadow:0 16px 32px rgba(191,132,35,.48);
+    }
+    .btn-primary:hover::after{opacity:1;}
+
+    .btn-ghost{
+      padding:8px 14px;border-radius:999px;
+      border:1px solid rgba(106,53,221,.25);
+      background:#f7f3ff;color:var(--primary);
+      font-size:12px;cursor:pointer;text-decoration:none;
+      transition:background .2s ease,transform .2s ease,box-shadow .2s ease;
+    }
+    .btn-ghost:hover{
+      background:#efe4ff;transform:translateY(-1px);
+      box-shadow:0 8px 18px rgba(106,53,221,.18);
     }
 
-    .nav-tag {
-      padding: 7px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(201,154,53,0.45);
-      font-size: 12px;
-      color: #614313;
-      background: linear-gradient(120deg, #fff6da, #ffe7a3, #fdf2d1);
-      box-shadow: 0 10px 24px rgba(191, 132, 35, 0.25);
-      position: relative;
-      overflow: hidden;
-      animation: pulseGlow 3.2s ease-in-out infinite;
+    .mini-note{font-size:11px;color:#8a7ba7;}
+
+    .countdown-card{
+      background:radial-gradient(circle at 0% 0%,#fff7df 0,transparent 55%),
+                 radial-gradient(circle at 100% 100%,#f1e7ff 0,transparent 55%),
+                 #fdfbff;
+      border-radius:var(--radius-xl);
+      padding:20px 18px 18px;
+      border:1px solid rgba(106,53,221,.12);
+      box-shadow:var(--shadow-soft);
+      position:relative;overflow:hidden;
     }
-    @keyframes pulseGlow {
-      0%,100% { box-shadow: 0 10px 24px rgba(191,132,35,0.25); }
-      50%     { box-shadow: 0 12px 30px rgba(191,132,35,0.45); }
+    .countdown-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px;}
+    .countdown-title{font-size:14px;font-weight:700;}
+    .countdown-sub{font-size:12px;color:var(--text-muted);}
+
+    .countdown-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:8px;margin:12px 0;
+    }
+    .count-box{
+      background:#1d1435;border-radius:16px;padding:10px 6px;
+      text-align:center;border:1px solid rgba(255,255,255,.16);
+      color:#fefbff;box-shadow:0 10px 24px rgba(26,13,58,.4);
+      transition:transform .22s ease,box-shadow .22s ease;
+    }
+    .count-box:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(26,13,58,.6);}
+    .count-number{font-size:18px;font-weight:700;margin-bottom:4px;}
+    .count-label{font-size:11px;opacity:.85;}
+
+    .launch-note{font-size:11px;color:var(--text-muted);margin-top:4px;}
+
+    .subscribe-box{margin-top:10px;padding-top:10px;border-top:1px solid rgba(106,53,221,.18);}
+    .subscribe-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px;}
+    .subscribe-row input[type="email"]{
+      flex:1 1 160px;min-width:0;
+      padding:9px 10px;border-radius:999px;
+      border:1px solid rgba(106,53,221,.25);
+      background:rgba(255,255,255,.9);
+      color:var(--text-main);font-size:12px;
+    }
+    .subscribe-row input::placeholder{color:rgba(93,78,121,.7);}
+    .subscribe-btn{
+      padding:8px 14px;border-radius:999px;border:none;cursor:pointer;
+      background:#6e3bff;color:#fff;font-size:12px;font-weight:600;
+      white-space:nowrap;
+      box-shadow:0 10px 22px rgba(69,36,150,.4);
+      transition:transform .2s ease,box-shadow .2s ease;
+    }
+    .subscribe-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 14px 30px rgba(69,36,150,.55);
+    }
+    .subscribe-hint{font-size:10px;color:var(--text-muted);}
+
+    section{margin-bottom:36px;}
+    .section-card{
+      background:var(--card-alt-bg);
+      border-radius:var(--radius-xl);
+      border:1px solid var(--border-soft);
+      padding:20px 18px;
+      box-shadow:var(--shadow-soft);
+    }
+    .section-header{margin-bottom:14px;}
+    .section-title{font-size:18px;font-weight:700;margin-bottom:4px;}
+    .section-subtitle{font-size:13px;color:var(--text-muted);}
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+      gap:14px;margin-top:10px;
+    }
+    .feature-item{
+      background:#fff;border-radius:16px;
+      padding:12px 10px;
+      border:1px solid rgba(106,53,221,.1);
+      box-shadow:0 9px 22px rgba(116,90,179,.15);
+      transition:transform .18s ease,box-shadow .18s ease;
+    }
+    .feature-item:hover{
+      transform:translateY(-3px);
+      box-shadow:0 14px 28px rgba(116,90,179,.22);
+    }
+    .feature-title{font-size:14px;font-weight:600;margin-bottom:5px;}
+    .feature-text{font-size:12px;color:var(--text-muted);}
+
+    .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+    .pill{
+      padding:4px 10px;border-radius:999px;
+      border:1px solid rgba(106,53,221,.25);
+      font-size:11px;color:var(--text-muted);
+      background:#f3ecff;
     }
 
-    main { margin-top: 10px; }
+    footer{margin-top:24px;font-size:11px;color:var(--text-muted);text-align:center;}
+    .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:4px;}
+    .footer-links a{color:var(--text-muted);text-decoration:none;font-size:11px;}
+    .footer-links a:hover{color:var(--primary);}
 
-    /* الهيرو */
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.7fr);
-      gap: 24px;
-      align-items: stretch;
-      margin-bottom: 40px;
-    }
-    @media (max-width: 840px) {
-      .hero { grid-template-columns: 1fr; }
-    }
+    .hidden{display:none;}
 
-    .hero-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-xl);
-      padding: 26px 24px 22px;
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 5px 11px;
-      border-radius: 999px;
-      background: var(--primary-soft);
-      border: 1px solid rgba(106,53,221,0.3);
-      font-size: 11px;
-      color: var(--primary);
-      margin-bottom: 14px;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .hero-pill:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 18px rgba(106,53,221,0.25);
-    }
-
-    .hero-title {
-      font-size: clamp(26px, 3.1vw, 32px);
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-    .hero-title span.highlight {
-      background: linear-gradient(120deg, #c48d11, #f4cf73, #c99a35);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-subtitle {
-      font-size: 15px;
-      color: var(--text-muted);
-      margin-bottom: 18px;
-    }
-
-    .hero-cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 9px 18px;
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(135deg, #f4cf73, #c99a35, #ffe6a1);
-      color: #1f1306;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 12px 26px rgba(191,132,35,0.4);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
-    }
-    .btn-primary span.icon {
-      margin-left: 6px;
-      font-size: 13px;
-    }
-    .btn-primary::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.7) 0, transparent 55%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px) scale(1.01);
-      box-shadow: 0 16px 32px rgba(191,132,35,0.48);
-    }
-    .btn-primary:hover::after { opacity: 1; }
-
-    .btn-ghost {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(106,53,221,0.25);
-      background: #f7f3ff;
-      color: var(--primary);
-      font-size: 12px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .btn-ghost:hover {
-      background: #efe4ff;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 18px rgba(106,53,221,0.18);
-    }
-
-    .mini-note {
-      font-size: 11px;
-      color: #8a7ba7;
-    }
-
-    /* العدّاد */
-    .countdown-card {
-      background: radial-gradient(circle at 0% 0%, #fff7df 0, transparent 55%),
-                  radial-gradient(circle at 100% 100%, #f1e7ff 0, transparent 55%),
-                  #fdfbff;
-      border-radius: var(--radius-xl);
-      padding: 20px 18px 18px;
-      border: 1px solid rgba(106,53,221,0.12);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .countdown-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-    .countdown-title {
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .countdown-sub {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .countdown-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 8px;
-      margin: 12px 0;
-    }
-
-    .count-box {
-      background: #1d1435;
-      border-radius: 16px;
-      padding: 10px 6px;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,0.16);
-      color: #fefbff;
-      box-shadow: 0 10px 24px rgba(26, 13, 58, 0.4);
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
-    }
-    .count-box:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 30px rgba(26, 13, 58, 0.6);
-    }
-
-    .count-number {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .count-label {
-      font-size: 11px;
-      opacity: 0.85;
-    }
-
-    .launch-note {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .subscribe-box {
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(106,53,221,0.18);
-    }
-
-    .subscribe-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .subscribe-row input[type="email"] {
-      flex: 1 1 160px;
-      min-width: 0;
-      padding: 9px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(106,53,221,0.25);
-      background: rgba(255,255,255,0.9);
-      color: var(--text-main);
-      font-size: 12px;
-      direction: rtl;
-    }
-    .subscribe-row input::placeholder {
-      color: rgba(93,78,121,0.7);
-    }
-
-    .subscribe-btn {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      background: #6e3bff;
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
-      box-shadow: 0 10px 22px rgba(69, 36, 150, 0.4);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .subscribe-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 30px rgba(69,36,150,0.55);
-    }
-
-    .subscribe-hint {
-      font-size: 10px;
-      color: var(--text-muted);
-    }
-
-    section { margin-bottom: 36px; }
-
-    .section-card {
-      background: var(--card-alt-bg);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-soft);
-      padding: 20px 18px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .section-header {
-      margin-bottom: 14px;
-    }
-    .section-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .section-subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 14px;
-      margin-top: 10px;
-    }
-    .feature-item {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 12px 10px;
-      border: 1px solid rgba(106,53,221,0.1);
-      box-shadow: 0 9px 22px rgba(116, 90, 179, 0.15);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-    }
-    .feature-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 28px rgba(116,90,179,0.22);
-    }
-
-    .feature-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-    .feature-text {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(106,53,221,0.25);
-      font-size: 11px;
-      color: var(--text-muted);
-      background: #f3ecff;
-    }
-
-    footer {
-      margin-top: 24px;
-      font-size: 11px;
-      color: var(--text-muted);
-      text-align: center;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 4px;
-    }
-    .footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 11px;
-    }
-    .footer-links a:hover { color: var(--primary); }
+    /* RTL tweaks when Arabic active */
+    .page.lang-ar main{direction:rtl;text-align:right;}
+    .page.lang-ar .subscribe-row input[type="email"]{direction:rtl;}
   </style>
 </head>
 <body>
 
 <div class="animated-bg"></div>
 
-<div class="page">
+<div class="page lang-en" id="page-root">
+  <!-- HEADER -->
   <header class="nav">
     <div class="brand">
       <div class="brand-logo">ع</div>
       <div>
-        <div class="brand-text-main">منصة علم التعليمية – ILM-EDU</div>
-        <div class="brand-text-sub">تعليم عصري… بلمسة عربية إماراتية</div>
+        <div class="brand-text-main" id="brand-title">
+          ILM-EDU Learning Platform
+        </div>
+        <div class="brand-text-sub" id="brand-sub">
+          Modern learning… with an Emirati Arabic touch
+        </div>
       </div>
     </div>
-    <div class="nav-tag">
-      إطلاق رسمي في فبراير 2026 بإذن الله
+
+    <div class="nav-right">
+      <div class="nav-tag" id="nav-tag">
+        Official launch in February 2026 (in shaa Allah)
+      </div>
+
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang-btn="en">EN</button>
+        <button class="lang-btn" data-lang-btn="ar">عربي</button>
+      </div>
     </div>
   </header>
 
-  <main>
-    <!-- الهيرو + العدّاد -->
+  <!-- MAIN CONTENT - ENGLISH -->
+  <main id="lang-en">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-card">
+        <div class="hero-pill">
+          🚀 Coming soon to schools in the UAE
+        </div>
+        <h1 class="hero-title">
+          A <span class="highlight">smart</span> learning platform that empowers teachers
+          and raises student achievement.
+        </h1>
+        <p class="hero-subtitle">
+          ILM-EDU is a comprehensive digital platform for schools, combining interactive videos,
+          question banks, smart reports and tracking tools… all in one place aligned with the UAE curriculum.
+        </p>
+
+        <div class="hero-cta-row">
+          <a class="btn-primary"
+             href="mailto:info@ilm-edu.ae?subject=Early%20interest%20in%20ILM-EDU">
+            Join the early interest list
+            <span class="icon">✉️</span>
+          </a>
+          <a class="btn-ghost" href="#about-en">
+            Learn more about our vision
+          </a>
+        </div>
+        <div class="mini-note">
+          Designed for schools, teachers and parents in the UAE first, with plans to expand across the region.
+        </div>
+      </div>
+
+      <aside class="countdown-card">
+        <div class="countdown-header">
+          <div>
+            <div class="countdown-title">Countdown to launch</div>
+            <div class="countdown-sub">
+              First release for schools in February 2026, in shaa Allah.
+            </div>
+          </div>
+        </div>
+
+        <div class="countdown-grid">
+          <div class="count-box">
+            <div class="count-number" data-days></div>
+            <div class="count-label">Days</div>
+          </div>
+          <div class="count-box">
+            <div class="count-number" data-hours></div>
+            <div class="count-label">Hours</div>
+          </div>
+          <div class="count-box">
+            <div class="count-number" data-minutes></div>
+            <div class="count-label">Minutes</div>
+          </div>
+          <div class="count-box">
+            <div class="count-number" data-seconds></div>
+            <div class="count-label">Seconds</div>
+          </div>
+        </div>
+
+        <div class="launch-note" data-launch-note>
+          Reserve a spot for your school to be among the first to access the full experience and free teacher training.
+        </div>
+
+        <div class="subscribe-box">
+          <form class="subscribe-row" onsubmit="return false;">
+            <input type="email" placeholder="Type your email to receive updates">
+            <button type="submit" class="subscribe-btn">
+              Register your interest
+            </button>
+          </form>
+          <div class="subscribe-hint">
+            * This form will later be connected to an email system (Mailchimp / Brevo).
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about-en">
+      <div class="section-card">
+        <div class="section-header">
+          <h2 class="section-title">What is ILM-EDU?</h2>
+          <p class="section-subtitle">
+            ILM-EDU is a carefully designed digital learning platform for schools in the UAE,
+            supporting students’ daily learning journey from Grade 1 to Grade 5 in the first phase,
+            with plans to expand to higher grades.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="feature-title">For school leadership</div>
+            <div class="feature-text">
+              Ready-made dashboards, instant reports on student and teacher performance,
+              and indicators that support inspection readiness and official reporting.
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-title">For teachers</div>
+            <div class="feature-text">
+              Ready lessons, short videos, question banks, interactive worksheets
+              and tracking tools that save preparation time and increase lesson impact.
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-title">For students</div>
+            <div class="feature-text">
+              Visually engaging learning, activities, educational games and instant questions that
+              help them understand before memorising.
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-title">For parents</div>
+            <div class="feature-text">
+              Simple access to progress, lesson objectives and home activities
+              that enable them to support their children without stress.
+            </div>
+          </div>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill">Aligned with UAE curriculum standards</span>
+          <span class="pill">Smart dashboards</span>
+          <span class="pill">Integration with school systems</span>
+          <span class="pill">Full teacher training</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section>
+      <div class="section-card">
+        <div class="section-header">
+          <h2 class="section-title">What does ILM-EDU offer your school?</h2>
+          <p class="section-subtitle">
+            We are building a practical, classroom-focused platform that is tested with partner schools
+            and directly connected to teacher and student needs.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="feature-title">High-quality interactive content</div>
+            <div class="feature-text">
+              Short videos, infographics, before/during/after questions and activities
+              that build listening, speaking, reading and writing skills.
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-title">Ready question banks</div>
+            <div class="feature-text">
+              Multiple question types (MCQ, True/False, drag-and-drop, matching…)
+              ready for homework, quizzes and exams.
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-title">Instant analytics & reporting</div>
+            <div class="feature-text">
+              Mastery percentages, strengths and gaps, class comparisons,
+              and exports that match regulatory requirements.
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-title">Seamless school integration</div>
+            <div class="feature-text">
+              Adapts to different school systems, with the option to connect to
+              Single Sign-On solutions when needed.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact-en">
+      <div class="section-card">
+        <div class="section-header">
+          <h2 class="section-title">Would you like your school to be among the first?</h2>
+          <p class="section-subtitle">
+            We are currently piloting early versions of the platform with a limited number of schools.
+            If your school would like to join, we would be happy to connect.
+          </p>
+        </div>
+
+        <div class="hero-cta-row" style="margin-top:8px;">
+          <a class="btn-primary"
+             href="mailto:schools@ilm-edu.ae?subject=School%20interest%20in%20ILM-EDU%20pilot">
+            Contact us for school partnerships
+            <span class="icon">🏫</span>
+          </a>
+          <a class="btn-ghost"
+             href="mailto:info@ilm-edu.ae?subject=General%20inquiry%20about%20ILM-EDU">
+            General inquiry
+          </a>
+        </div>
+
+        <div class="mini-note" style="margin-top:10px;">
+          We provide intro material, a demo and initial free training for school teams
+          before the official launch.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MAIN CONTENT - ARABIC -->
+  <main id="lang-ar" class="hidden">
     <section class="hero">
       <div class="hero-card">
         <div class="hero-pill">
@@ -493,7 +540,7 @@
             انضم إلى قائمة المهتمين
             <span class="icon">✉️</span>
           </a>
-          <a class="btn-ghost" href="#about">
+          <a class="btn-ghost" href="#about-ar">
             تعرّف على رؤية المنصة
           </a>
         </div>
@@ -513,32 +560,32 @@
           </div>
         </div>
 
-        <div class="countdown-grid" id="countdown">
+        <div class="countdown-grid">
           <div class="count-box">
-            <div class="count-number" id="days">–</div>
+            <div class="count-number" data-days></div>
             <div class="count-label">أيام</div>
           </div>
           <div class="count-box">
-            <div class="count-number" id="hours">–</div>
+            <div class="count-number" data-hours></div>
             <div class="count-label">ساعات</div>
           </div>
           <div class="count-box">
-            <div class="count-number" id="minutes">–</div>
+            <div class="count-number" data-minutes></div>
             <div class="count-label">دقائق</div>
           </div>
           <div class="count-box">
-            <div class="count-number" id="seconds">–</div>
+            <div class="count-number" data-seconds></div>
             <div class="count-label">ثوانٍ</div>
           </div>
         </div>
 
-        <div class="launch-note" id="launch-note">
+        <div class="launch-note" data-launch-note>
           احجز مكان مدرستك ضمن المدارس الأولى التي تحصل على تجربة كاملة وتدريب مجاني للمعلمين.
         </div>
 
         <div class="subscribe-box">
           <form class="subscribe-row" onsubmit="return false;">
-            <input type="email" placeholder="اكتب بريدك الإلكتروني ليصلك كل جديد">
+            <input type="email" placeholder="اكتب بريدك الإلكتروني ليصلك كل جديد" style="direction:rtl;">
             <button type="submit" class="subscribe-btn">
               سجّل اهتمامك
             </button>
@@ -550,8 +597,8 @@
       </aside>
     </section>
 
-    <!-- من نحن -->
-    <section id="about">
+    <!-- ABOUT AR -->
+    <section id="about-ar">
       <div class="section-card">
         <div class="section-header">
           <h2 class="section-title">ما هي منصة علم – ILM-EDU؟</h2>
@@ -602,7 +649,7 @@
       </div>
     </section>
 
-    <!-- مميزات المنصة -->
+    <!-- FEATURES AR -->
     <section>
       <div class="section-card">
         <div class="section-header">
@@ -646,8 +693,8 @@
       </div>
     </section>
 
-    <!-- دعوة للتواصل -->
-    <section id="contact">
+    <!-- CONTACT AR -->
+    <section id="contact-ar">
       <div class="section-card">
         <div class="section-header">
           <h2 class="section-title">هل ترغب أن تكون مدرستك من أوائل المدارس المشاركة؟</h2>
@@ -679,36 +726,42 @@
 
   <footer>
     <div class="footer-links">
-      <a href="#about">عن المنصة</a>
-      <a href="#contact">تواصل معنا</a>
+      <a href="#about-en" id="footer-link-about">About / عن المنصة</a>
+      <a href="#contact-en" id="footer-link-contact">Contact / تواصل</a>
       <a href="mailto:info@ilm-edu.ae">info@ilm-edu.ae</a>
     </div>
-    <div>
-      © 2026 جميع الحقوق محفوظة لمنصة علم التعليمية – ILM-EDU
+    <div id="footer-text">
+      © 2026 All rights reserved – ILM-EDU Learning Platform
     </div>
   </footer>
 </div>
 
 <script>
-  // تاريخ الإطلاق: 1 فبراير 2026 (توقيت الإمارات +4)
+  // Countdown
   const launchDate = new Date("2026-02-01T00:00:00+04:00").getTime();
 
   function updateCountdown() {
     const now = new Date().getTime();
     const diff = launchDate - now;
 
-    const daysEl = document.getElementById("days");
-    const hoursEl = document.getElementById("hours");
-    const minutesEl = document.getElementById("minutes");
-    const secondsEl = document.getElementById("seconds");
-    const noteEl = document.getElementById("launch-note");
+    const dayEls = document.querySelectorAll("[data-days]");
+    const hourEls = document.querySelectorAll("[data-hours]");
+    const minuteEls = document.querySelectorAll("[data-minutes]");
+    const secondEls = document.querySelectorAll("[data-seconds]");
+    const noteEls = document.querySelectorAll("[data-launch-note]");
 
     if (diff <= 0) {
-      daysEl.textContent = "0";
-      hoursEl.textContent = "0";
-      minutesEl.textContent = "0";
-      secondsEl.textContent = "0";
-      noteEl.textContent = "تم إطلاق النسخة الأولى من المنصة. يسعدنا تواصلكم للانضمام.";
+      dayEls.forEach(el => el.textContent = "0");
+      hourEls.forEach(el => el.textContent = "0");
+      minuteEls.forEach(el => el.textContent = "0");
+      secondEls.forEach(el => el.textContent = "0");
+      noteEls.forEach(el => {
+        if (document.documentElement.lang === "ar") {
+          el.textContent = "تم إطلاق النسخة الأولى من المنصة. يسعدنا تواصلكم للانضمام.";
+        } else {
+          el.textContent = "The first version has been launched. We would be happy to connect with your school.";
+        }
+      });
       return;
     }
 
@@ -717,14 +770,74 @@
     const minutes = Math.floor((diff / (1000 * 60)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
 
-    daysEl.textContent = days;
-    hoursEl.textContent = hours.toString().padStart(2, "0");
-    minutesEl.textContent = minutes.toString().padStart(2, "0");
-    secondsEl.textContent = seconds.toString().padStart(2, "0");
+    dayEls.forEach(el => el.textContent = days);
+    hourEls.forEach(el => el.textContent = hours.toString().padStart(2,"0"));
+    minuteEls.forEach(el => el.textContent = minutes.toString().padStart(2,"0"));
+    secondEls.forEach(el => el.textContent = seconds.toString().padStart(2,"0"));
   }
 
   updateCountdown();
   setInterval(updateCountdown, 1000);
+
+  // Language switcher
+  const pageRoot = document.getElementById("page-root");
+  const langEnMain = document.getElementById("lang-en");
+  const langArMain = document.getElementById("lang-ar");
+  const langBtns = document.querySelectorAll("[data-lang-btn]");
+
+  const brandTitle = document.getElementById("brand-title");
+  const brandSub   = document.getElementById("brand-sub");
+  const navTag     = document.getElementById("nav-tag");
+  const footerText = document.getElementById("footer-text");
+  const footerLinkAbout   = document.getElementById("footer-link-about");
+  const footerLinkContact = document.getElementById("footer-link-contact");
+
+  function setLanguage(lang) {
+    if (lang === "ar") {
+      document.documentElement.lang = "ar";
+      document.documentElement.dir  = "rtl";
+      pageRoot.classList.remove("lang-en");
+      pageRoot.classList.add("lang-ar");
+      langEnMain.classList.add("hidden");
+      langArMain.classList.remove("hidden");
+
+      brandTitle.textContent = "منصة علم التعليمية – ILM-EDU";
+      brandSub.textContent   = "تعليم عصري… بلمسة عربية إماراتية";
+      navTag.textContent     = "إطلاق رسمي في فبراير 2026 بإذن الله";
+      footerText.textContent = "© 2026 جميع الحقوق محفوظة لمنصة علم التعليمية – ILM-EDU";
+      footerLinkAbout.setAttribute("href","#about-ar");
+      footerLinkContact.setAttribute("href","#contact-ar");
+      footerLinkAbout.textContent   = "عن المنصة";
+      footerLinkContact.textContent = "تواصل معنا";
+    } else {
+      document.documentElement.lang = "en";
+      document.documentElement.dir  = "ltr";
+      pageRoot.classList.remove("lang-ar");
+      pageRoot.classList.add("lang-en");
+      langArMain.classList.add("hidden");
+      langEnMain.classList.remove("hidden");
+
+      brandTitle.textContent = "ILM-EDU Learning Platform";
+      brandSub.textContent   = "Modern learning… with an Emirati Arabic touch";
+      navTag.textContent     = "Official launch in February 2026 (in shaa Allah)";
+      footerText.textContent = "© 2026 All rights reserved – ILM-EDU Learning Platform";
+      footerLinkAbout.setAttribute("href","#about-en");
+      footerLinkContact.setAttribute("href","#contact-en");
+      footerLinkAbout.textContent   = "About";
+      footerLinkContact.textContent = "Contact";
+    }
+
+    langBtns.forEach(btn => {
+      if (btn.getAttribute("data-lang-btn") === lang) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+  }
+
+  // Default language: English
+  setLanguage("en");
 </script>
 
 </body>
