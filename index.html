@@ -415,16 +415,20 @@
       Register your interest
     </button>
   </form>
-<script>
-function onMailchimpSubmit() {
-    // يظهر فقط بعد رجوع Mailchimp بنتيجة الاشتراك
-    document.getElementById("popup-success").style.display = "block";
-}
-</script>
-<iframe name="mc-iframe" style="display:none;" onload="onMailchimpSubmit()"></iframe>
-  <div class="subscribe-hint">
-    * Your email will be added to the ILM-EDU pre-launch list via Mailchimp.
-  </div>
+
+<form
+  class="subscribe-row"
+  action="https://ilm-edu.us8.list-manage.com/subscribe/post?u=5a62b975c387dc430e16013ad&amp;id=9df49a4a38&amp;f_id=00c023e0f0"
+  method="post"
+  target="mc-iframe"
+  onsubmit="showPopup()"
+>
+  ...
+</form>
+<iframe name="mc-iframe" style="display:none;"></iframe>
+<div class="subscribe-hint">
+  * Your email will be added to the ILM-EDU pre-launch list via Mailchimp.
+</div>
 </div>
       </aside>
     </section>
@@ -647,13 +651,14 @@ function onMailchimpSubmit() {
       سجّل اهتمامك
     </button>
   </form>
-<script>
-function onMailchimpSubmit() {
-    // يظهر فقط بعد رجوع Mailchimp بنتيجة الاشتراك
-    document.getElementById("popup-success").style.display = "block";
-}
-</script>
-<iframe name="mc-iframe" style="display:none;" onload="onMailchimpSubmit()"></iframe>
+<form
+  class="subscribe-row"
+  action="https://ilm-edu.us8.list-manage.com/subscribe/post?u=5a62b975c387dc430e16013ad&amp;id=9df49a4a38&amp;f_id=00c023e0f0"
+  method="post"
+  target="mc-iframe"
+  onsubmit="showPopup()"
+>
+
   <div class="subscribe-hint">
     * سيتم إضافة بريدك إلى قائمة الإطلاق التجريبي لمنصة "علم" عبر Mailchimp.
   </div>
