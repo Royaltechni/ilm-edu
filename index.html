@@ -2,8 +2,10 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="google-site-verification" content="DY3pY-bRASSRySdBOLbuBdw80DauNJovlCsiu--2UNA" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Search Console verification (ضع الكود الفعلي هنا إن كنت أضفته) -->
+  <!-- <meta name="google-site-verification" content="PUT_YOUR_REAL_CODE_HERE" /> -->
 
   <!-- أساسيّات الـ SEO -->
   <title>ILM-EDU | Inquire · Learn · Master – منصة تعليمية ذكية بمواءمة كاملة مع المنهاج الإماراتي</title>
@@ -12,16 +14,20 @@
         content="ILM-EDU هي منصة تعليمية ذكية للمدارس في دولة الإمارات. تقوم رحلة عِلْم على ثلاث خطوات: ابحث – تعلّم – أتقن، مع مواءمة 100% لمعايير المنهاج الإماراتي وتحليلات ذكية للطلاب والمعلمين وأولياء الأمور.">
 
   <meta name="keywords"
-        content="ILM-EDU, ILM, Inquire Learn Master, منصة تعليمية, التعليم في الإمارات, المنهاج الإماراتي, منصة رقمية, تقييمات ذكية, تحليل بيانات الطلاب">
+        content="ILM-EDU, ILM, Inquire Learn Master, منصة تعليمية, التعليم في الإمارات, المنهاج الإماراتي, منصة رقمية, تقييمات ذكية, تحليل بيانات الطلاب, تعليم رقمي, منصات تعليمية">
 
   <meta name="robots" content="index, follow">
+  <meta name="author" content="ILM-EDU by RoyalTechni" />
 
   <!-- Open Graph (فيسبوك / لينكدإن / واتساب) -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ILM-EDU" />
   <meta property="og:title" content="ILM-EDU | Inquire · Learn · Master – منصة تعليمية ذكية للمدارس في الإمارات">
   <meta property="og:description" content="منصة ILM-EDU تربط بين المدرسة والطالب وولي الأمر في رحلة تعلم رقمية تدعم المهارات المستقبلية والهوية الوطنية بمواءمة كاملة مع المنهاج الإماراتي.">
   <meta property="og:url" content="http://ilm-edu.ae/">
   <meta property="og:image" content="http://ilm-edu.ae/ilm-edu-logo.png">
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ar_AE" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
@@ -34,22 +40,36 @@
   <link rel="alternate" href="http://ilm-edu.ae/" hreflang="ar" />
   <link rel="canonical" href="http://ilm-edu.ae/" />
 
+  <!-- رابط ملف السيت ماب -->
+  <link rel="sitemap" type="application/xml" href="http://ilm-edu.ae/sitemap.xml" />
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="http://ilm-edu.ae/ilm-edu-logo.png">
 
-  <!-- Structured Data (Schema.org) -->
+  <!-- Structured Data (Schema.org) – WebSite + EducationalOrganization -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "name": "ILM-EDU",
-    "url": "http://ilm-edu.ae/",
-    "logo": "http://ilm-edu.ae/ilm-edu-logo.png",
-    "description": "ILM-EDU is a smart educational platform for UAE schools built around the ILM journey: Inquire, Learn, Master – fully aligned with the UAE curriculum.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "AE"
-    }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "ILM-EDU",
+        "url": "http://ilm-edu.ae/",
+        "inLanguage": ["en", "ar"],
+        "description": "ILM-EDU is a smart educational platform for UAE schools built around the ILM journey: Inquire, Learn, Master – fully aligned with the UAE curriculum."
+      },
+      {
+        "@type": "EducationalOrganization",
+        "name": "ILM-EDU",
+        "url": "http://ilm-edu.ae/",
+        "logo": "http://ilm-edu.ae/ilm-edu-logo.png",
+        "description": "ILM-EDU is a smart educational platform for UAE schools built around the ILM journey: Inquire, Learn, Master – fully aligned with the UAE curriculum.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "AE"
+        }
+      }
+    ]
   }
   </script>
 
@@ -1473,4 +1493,3 @@
 </script>
 </body>
 </html>
-
