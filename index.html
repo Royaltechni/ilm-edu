@@ -233,7 +233,7 @@
 
                 <div class="relative max-w-4xl mx-auto group">
     <!-- تم تغيير aspect-video إلى aspect-[1263/670] لتطابق أبعاد الصور -->
-    <div class="overflow-hidden rounded-2xl shadow-xl aspect-[1263/670] bg-ilm-bg relative" id="slider-container">
+    <div class="overflow-hidden rounded-2xl shadow-xl bg-ilm-bg relative" id="slider-container">
 
                         <!-- Slide 1 -->
                         <div class="slide active">
@@ -563,72 +563,122 @@
         }
 
         // --- Carousel Logic ---
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const indicatorsContainer = document.getElementById('slider-indicators');
-        let autoSlideInterval;
+        // =========================
+// Feature Slider
+// =========================
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const indicatorsContainer = document.getElementById('slider-indicators');
+let autoSlideInterval;
 
-        function initCarousel() {
-            // Create indicators
-            slides.forEach((_, idx) => {
-                const btn = document.createElement('button');
-                btn.className = `w-3 h-3 rounded-full transition-all duration-300 ${idx === 0 ? 'bg-ilm-primary w-8' : 'bg-ilm-muted/40 hover:bg-ilm-muted'}`;
-                btn.onclick = () => goToSlide(idx);
-                indicatorsContainer.appendChild(btn);
-            });
-            startAutoSlide();
+// تحديث ارتفاع الكاروسيل حسب مقاس الصورة الحالية
+function updateCarouselHeight() {
+    const container = document.getElementById('slider-container');
+    const activeSlide = slides[currentSlide];
+    if (!container || !activeSlide) return;
+
+    const img = activeSlide.querySelector('img');
+    if (!img) return;
+
+    const setHeight = () => {
+        if (!img.naturalWidth || !img.naturalHeight) return;
+        const ratio = img.naturalHeight / img.naturalWidth;
+        container.style.height = (container.offsetWidth * ratio) + 'px';
+    };
+
+    if (img.complete) {
+        setHeight();
+    } else {
+        img.addEventListener('load', setHeight, { once: true });
+    }
+}
+
+function updateCarousel() {
+    slides.forEach((slide, idx) => {
+        if (idx === currentSlide) {
+            slide.classList.add('active');
+            slide.style.opacity = '1';
+            slide.style.zIndex = '10';
+        } else {
+            slide.classList.remove('active');
+            slide.style.opacity = '0';
+            slide.style.zIndex = '0';
         }
+    });
 
-        function updateCarousel() {
-            slides.forEach((slide, idx) => {
-                if (idx === currentSlide) {
-                    slide.classList.add('active');
-                    slide.style.opacity = '1';
-                    slide.style.zIndex = '10';
-                } else {
-                    slide.classList.remove('active');
-                    slide.style.opacity = '0';
-                    slide.style.zIndex = '0';
-                }
-            });
+    // ضبط الارتفاع
+    updateCarouselHeight();
 
-            // Update indicators
-            const dots = indicatorsContainer.children;
-            for (let i = 0; i < dots.length; i++) {
-                dots[i].className = `w-3 h-3 rounded-full transition-all duration-300 ${i === currentSlide ? 'bg-ilm-primary w-8' : 'bg-ilm-muted/40 hover:bg-ilm-muted'}`;
-            }
+    // تحديث الدوائر السفلية (Indicators)
+    if (indicatorsContainer) {
+        const dots = indicatorsContainer.children;
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].className =
+                'w-3 h-3 rounded-full transition-all ' +
+                (i === currentSlide
+                    ? 'bg-ilm-primary w-8'
+                    : 'bg-ilm-muted/40 hover:bg-ilm-muted');
         }
+    }
+}
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            updateCarousel();
-            resetAutoSlide();
-        }
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateCarousel();
+    resetAutoSlide();
+}
 
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            updateCarousel();
-            resetAutoSlide();
-        }
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    updateCarousel();
+    resetAutoSlide();
+}
 
-        function goToSlide(idx) {
-            currentSlide = idx;
-            updateCarousel();
-            resetAutoSlide();
-        }
+function goToSlide(idx) {
+    currentSlide = idx;
+    updateCarousel();
+    resetAutoSlide();
+}
 
-        function startAutoSlide() {
-            autoSlideInterval = setInterval(nextSlide, 4000);
-        }
+function startAutoSlide() {
+    autoSlideInterval = setInterval(nextSlide, 4000);
+}
 
-        function resetAutoSlide() {
-            clearInterval(autoSlideInterval);
-            startAutoSlide();
-        }
+function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    startAutoSlide();
+}
+
+function initCarousel() {
+    if (!slides.length) return;
+
+    // إنشاء نقاط الـ indicators
+    slides.forEach((_, idx) => {
+        const btn = document.createElement('button');
+        btn.className =
+            'w-3 h-3 rounded-full transition-all ' +
+            (idx === 0
+                ? 'bg-ilm-primary w-8'
+                : 'bg-ilm-muted/40 hover:bg-ilm-muted');
+        btn.type = 'button';
+        btn.setAttribute('aria-label', `Go to slide ${idx + 1}`);
+        btn.onclick = () => goToSlide(idx);
+        indicatorsContainer.appendChild(btn);
+    });
+
+    updateCarousel();
+    startAutoSlide();
+    window.addEventListener('resize', updateCarousel);
+}
+
+// استدعاء التهيئة
+initCarousel();
+
 
     </script>
 </body>
 </html>
+
 
 
 
