@@ -232,7 +232,9 @@
                 </div>
 
                 <div class="relative max-w-4xl mx-auto group">
-                    <div class="overflow-hidden rounded-2xl shadow-xl aspect-video bg-ilm-bg relative" id="slider-container">
+    <!-- تم تغيير aspect-video إلى aspect-[1263/670] لتطابق أبعاد الصور -->
+    <div class="overflow-hidden rounded-2xl shadow-xl aspect-[1263/670] bg-ilm-bg relative" id="slider-container">
+
                         <!-- Slide 1 -->
                         <div class="slide active">
                             <img src="1.png" onerror="this.src='https://picsum.photos/800/450?random=1'" alt="Feature 1" class="w-full h-full object-cover">
@@ -627,6 +629,7 @@
     </script>
 </body>
 </html>
+
 
 
 
