@@ -1,35 +1,629 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Vision from './components/Vision';
-import FeaturesCarousel from './components/FeaturesCarousel';
-import Newsletter from './components/Newsletter';
-import Footer from './components/Footer';
-import FloatingWhatsApp from './components/FloatingWhatsApp';
-import { Language } from './types';
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILM-EDU | Inquire · Learn · Master</title>
+    <meta name="description" content="ILM-EDU: A new smart education platform for private schools in the UAE. Inquire, Learn, Master.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-function App() {
-  const [lang, setLang] = useState<Language>('en');
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ilm: {
+                            primary: '#7C2B62',
+                            secondary: '#F4C542',
+                            bg: '#E5DCCB',
+                            text: '#2F2440',
+                            muted: '#7B6B8A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        arabic: ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
-  // Handle RTL direction updates
-  useEffect(() => {
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-  }, [lang]);
-
-  return (
-    <div className={`min-h-screen font-sans ${lang === 'ar' ? 'font-arabic' : ''} bg-ilm-bg text-ilm-text overflow-x-hidden`}>
-      <Navbar lang={lang} setLang={setLang} />
-      <main>
-        <Hero lang={lang} />
-        <Vision lang={lang} />
-        <FeaturesCarousel lang={lang} />
-        <Newsletter lang={lang} />
-      </main>
-      <Footer lang={lang} />
-      <FloatingWhatsApp />
-    </div>
-  );
+    <style>
+        body {
+            background-color: #E5DCCB;
+            color: #2F2440;
+        }
+        .slide {
+            transition: opacity 0.7s ease-in-out;
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            z-index: 0;
+        }
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(229, 220, 203, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0"
+  }
 }
+</script>
+</head>
+<body class="font-sans antialiased overflow-x-hidden selection:bg-ilm-secondary selection:text-ilm-primary">
 
-export default App;
+    <!-- Navbar -->
+    <nav class="fixed w-full z-40 glass shadow-sm border-b border-ilm-primary/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <img src="ilm-edu-logo.png" alt="ILM-EDU Logo" class="w-10 h-10 object-contain" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzdDMkI2MiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIxNCI+SUxNPC90ZXh0Pjwvc3ZnPg=='">
+                    <span class="font-bold text-2xl text-ilm-primary tracking-tight">ILM-EDU</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
+                    <a href="#" class="text-ilm-text hover:text-ilm-primary font-medium transition-colors" data-i18n="nav.home">Home</a>
+                    <a href="#vision" class="text-ilm-text hover:text-ilm-primary font-medium transition-colors" data-i18n="nav.vision">Vision</a>
+                    <a href="#features" class="text-ilm-text hover:text-ilm-primary font-medium transition-colors" data-i18n="nav.features">Features</a>
+                    <a href="#contact" class="text-ilm-text hover:text-ilm-primary font-medium transition-colors" data-i18n="nav.contact">Contact</a>
+                    
+                    <button onclick="toggleLanguage()" class="flex items-center gap-1 px-3 py-1 rounded-full border border-ilm-muted text-ilm-text hover:bg-ilm-primary hover:text-white transition-colors text-sm">
+                        <i data-lucide="globe" class="w-4 h-4"></i>
+                        <span id="lang-btn-text">عربي</span>
+                    </button>
+
+                    <a href="https://wa.me/971553114946?text=Hello%20ILM-EDU%20team%2C%20I%20would%20like%20to%20book%20a%20school%20demo%20for%20the%20platform" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="bg-ilm-primary text-white px-5 py-2.5 rounded-full font-medium hover:bg-opacity-90 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                       data-i18n="nav.bookDemo">
+                        Book a Demo
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button onclick="toggleLanguage()" class="flex items-center gap-1 px-2 py-1 rounded border border-ilm-muted text-ilm-text text-xs">
+                        <span id="mobile-lang-text">AR</span>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="text-ilm-primary hover:text-ilm-text focus:outline-none">
+                        <i data-lucide="menu" id="menu-icon" class="w-7 h-7"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-ilm-bg border-t border-ilm-muted/20">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-ilm-text hover:bg-ilm-primary/10 hover:text-ilm-primary" data-i18n="nav.home">Home</a>
+                <a href="#vision" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-ilm-text hover:bg-ilm-primary/10 hover:text-ilm-primary" data-i18n="nav.vision">Vision</a>
+                <a href="#features" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-ilm-text hover:bg-ilm-primary/10 hover:text-ilm-primary" data-i18n="nav.features">Features</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-ilm-text hover:bg-ilm-primary/10 hover:text-ilm-primary" data-i18n="nav.contact">Contact</a>
+                <a href="https://wa.me/971553114946?text=Hello%20ILM-EDU%20team%2C%20I%20would%20like%20to%20book%20a%20school%20demo%20for%20the%20platform" target="_blank" class="block w-full text-center mt-4 bg-ilm-primary text-white px-5 py-3 rounded-lg font-bold shadow-md" data-i18n="nav.bookDemo">Book a Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-ilm-secondary/20 blur-3xl opacity-50"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-ilm-primary/10 blur-3xl opacity-50"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-4xl mx-auto">
+                    <div class="inline-block mb-6 px-4 py-1.5 rounded-full bg-white/50 border border-ilm-primary/20 backdrop-blur-sm shadow-sm">
+                        <span class="text-ilm-primary font-bold tracking-wider text-sm uppercase" data-i18n="hero.slogan">Inquire · Learn · Master</span>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-ilm-text mb-8 leading-tight" data-i18n="hero.title">
+                        The Future of Smart Education
+                    </h1>
+                    
+                    <p class="text-xl text-ilm-muted mb-10 max-w-2xl mx-auto leading-relaxed" data-i18n="hero.subtitle">
+                        Empowering private schools in the UAE with cutting-edge learning technologies. Join us in shaping the next generation of leaders.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="#contact" class="w-full sm:w-auto px-8 py-4 bg-ilm-primary text-white rounded-xl font-bold shadow-lg shadow-ilm-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-2 group">
+                            <span data-i18n="hero.ctaPrimary">Get Early Access</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform"></i>
+                        </a>
+                        
+                        <a href="https://www.youtube.com/@Ilm-Edu" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 bg-white text-ilm-text border border-ilm-muted/20 rounded-xl font-bold hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="play" class="w-5 h-5 fill-ilm-primary text-ilm-primary"></i>
+                            <span data-i18n="hero.ctaSecondary">Watch Video</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Image Mockup -->
+                <div class="mt-16 lg:mt-24 relative mx-auto max-w-5xl">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                        <!-- Using 1.png as a hero dashboard representation or fallback to placeholder -->
+                        <img src="1.png" 
+                             onerror="this.src='https://picsum.photos/1200/600?grayscale'" 
+                             alt="Platform Dashboard" 
+                             class="w-full h-auto object-cover">
+                        <!-- Overlay Gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-ilm-primary/20 to-transparent pointer-events-none"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision Section -->
+        <section id="vision" class="py-24 bg-ilm-bg relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABADeOQ8CXl/xfgAAAABJRU5ErkJggg==');"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16 max-w-3xl mx-auto">
+                    <span class="text-ilm-primary font-semibold tracking-wider uppercase text-sm mb-2 block">ILM-EDU 2026</span>
+                    <h2 class="text-3xl md:text-5xl font-bold text-ilm-text mb-6" data-i18n="vision.title">Our Vision</h2>
+                    <p class="text-lg text-ilm-muted leading-relaxed" data-i18n="vision.description">
+                        We are reimagining education by bridging the gap between traditional values and modern technology.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="p-8 rounded-2xl shadow-lg transition-transform duration-300 hover:-translate-y-2 bg-ilm-primary text-white">
+                        <div class="mb-6 p-3 rounded-xl bg-white/20 w-fit backdrop-blur-sm">
+                            <i data-lucide="lightbulb" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3" data-i18n="vision.card1Title">Smart Learning</h3>
+                        <p class="opacity-90 leading-relaxed" data-i18n="vision.card1Desc">AI-driven curriculum adaptation for personalized student growth.</p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="p-8 rounded-2xl shadow-lg transition-transform duration-300 hover:-translate-y-2 bg-ilm-secondary text-ilm-text">
+                        <div class="mb-6 p-3 rounded-xl bg-white/20 w-fit backdrop-blur-sm">
+                            <i data-lucide="users" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3" data-i18n="vision.card2Title">Seamless Integration</h3>
+                        <p class="opacity-90 leading-relaxed" data-i18n="vision.card2Desc">Unified platform for students, teachers, and parents.</p>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="p-8 rounded-2xl shadow-lg transition-transform duration-300 hover:-translate-y-2 bg-white text-ilm-primary border border-ilm-muted/10">
+                        <div class="mb-6 p-3 rounded-xl bg-ilm-primary/10 w-fit backdrop-blur-sm">
+                            <i data-lucide="rocket" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3" data-i18n="vision.card3Title">Future Ready</h3>
+                        <p class="opacity-90 leading-relaxed" data-i18n="vision.card3Desc">Preparing students for the challenges of tomorrow's world.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Carousel -->
+        <section id="features" class="py-20 bg-white relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-ilm-text mb-4" data-i18n="features.title">Platform Highlights</h2>
+                    <p class="text-lg text-ilm-muted max-w-2xl mx-auto" data-i18n="features.subtitle">Experience a seamless digital ecosystem designed for excellence.</p>
+                </div>
+
+                <div class="relative max-w-4xl mx-auto group">
+                    <div class="overflow-hidden rounded-2xl shadow-xl aspect-video bg-ilm-bg relative" id="slider-container">
+                        <!-- Slide 1 -->
+                        <div class="slide active">
+                            <img src="1.png" onerror="this.src='https://picsum.photos/800/450?random=1'" alt="Feature 1" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 sm:p-8">
+                                <h3 class="text-white text-xl sm:text-2xl font-bold" data-i18n="features.s1">Smart Dashboard</h3>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="slide">
+                            <img src="2.png" onerror="this.src='https://picsum.photos/800/450?random=2'" alt="Feature 2" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 sm:p-8">
+                                <h3 class="text-white text-xl sm:text-2xl font-bold" data-i18n="features.s2">Live Analytics</h3>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="slide">
+                            <img src="3.png" onerror="this.src='https://picsum.photos/800/450?random=3'" alt="Feature 3" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 sm:p-8">
+                                <h3 class="text-white text-xl sm:text-2xl font-bold" data-i18n="features.s3">Interactive Lessons</h3>
+                            </div>
+                        </div>
+                        <!-- Slide 4 -->
+                        <div class="slide">
+                            <img src="4.png" onerror="this.src='https://picsum.photos/800/450?random=4'" alt="Feature 4" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 sm:p-8">
+                                <h3 class="text-white text-xl sm:text-2xl font-bold" data-i18n="features.s4">Parent Connect</h3>
+                            </div>
+                        </div>
+                        <!-- Slide 5 -->
+                        <div class="slide">
+                            <img src="5.png" onerror="this.src='https://picsum.photos/800/450?random=5'" alt="Feature 5" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 sm:p-8">
+                                <h3 class="text-white text-xl sm:text-2xl font-bold" data-i18n="features.s5">Assignment Tracking</h3>
+                            </div>
+                        </div>
+                        <!-- Slide 6 -->
+                        <div class="slide">
+                            <img src="6.png" onerror="this.src='https://picsum.photos/800/450?random=6'" alt="Feature 6" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 sm:p-8">
+                                <h3 class="text-white text-xl sm:text-2xl font-bold" data-i18n="features.s6">Mobile Ready</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prev Button -->
+                    <button onclick="prevSlide()" class="absolute top-1/2 left-4 -translate-y-1/2 z-20 bg-white/80 hover:bg-white text-ilm-primary p-3 rounded-full shadow-lg transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 rtl:right-4 rtl:left-auto" aria-label="Previous slide">
+                        <i data-lucide="chevron-left" class="w-6 h-6 rtl:hidden"></i>
+                        <i data-lucide="chevron-right" class="w-6 h-6 hidden rtl:block"></i>
+                    </button>
+                    
+                    <!-- Next Button -->
+                    <button onclick="nextSlide()" class="absolute top-1/2 right-4 -translate-y-1/2 z-20 bg-white/80 hover:bg-white text-ilm-primary p-3 rounded-full shadow-lg transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 rtl:left-4 rtl:right-auto" aria-label="Next slide">
+                        <i data-lucide="chevron-right" class="w-6 h-6 rtl:hidden"></i>
+                        <i data-lucide="chevron-left" class="w-6 h-6 hidden rtl:block"></i>
+                    </button>
+
+                    <!-- Indicators -->
+                    <div class="flex justify-center mt-6 gap-2" id="slider-indicators">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section id="contact" class="py-24 bg-ilm-primary text-white relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-ilm-secondary/20 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
+
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6" data-i18n="newsletter.title">Join the Future</h2>
+                <p class="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto" data-i18n="newsletter.subtitle">
+                    Be the first to know when we launch. Sign up for early access updates.
+                </p>
+
+                <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault(); alert('Thank you for subscribing! We will keep you updated.');">
+                    <input type="email" placeholder="Enter your email address" class="flex-1 px-6 py-4 rounded-xl text-ilm-text focus:outline-none focus:ring-4 focus:ring-ilm-secondary/50 transition-all rtl:text-right text-left" required data-placeholder="newsletter.placeholder">
+                    <button type="submit" class="px-8 py-4 bg-ilm-secondary text-ilm-text font-bold rounded-xl hover:bg-[#ffda6b] transition-colors shadow-lg shadow-black/10" data-i18n="newsletter.button">
+                        Subscribe
+                    </button>
+                </form>
+                <p class="mt-4 text-sm text-white/50" data-i18n="newsletter.spam">
+                    * No spam. Unsubscribe anytime.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-ilm-text text-white pt-16 pb-8 border-t-4 border-ilm-secondary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-ilm-secondary rounded-md flex items-center justify-center text-ilm-text font-bold text-lg">I</div>
+                        <span class="font-bold text-2xl text-white">ILM-EDU</span>
+                    </div>
+                    <p class="text-gray-400 max-w-sm leading-relaxed" data-i18n="footer.desc">
+                        Empowering the next generation of learners with advanced tools and seamless integration.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-ilm-secondary" data-i18n="footer.contactUs">Contact Us</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-center gap-2">
+                            <span data-i18n="footer.location">UAE, Dubai</span>
+                        </li>
+                        <li>
+                            <a href="mailto:contact@ilm-edu.ae" class="hover:text-ilm-secondary transition-colors">contact@ilm-edu.ae</a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/971553114946" class="hover:text-ilm-secondary transition-colors">+971 55 311 4946</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-ilm-secondary" data-i18n="footer.followUs">Follow Us</h4>
+                    <div class="flex gap-4">
+                        <a href="https://instagram.com/ilm_edu2026" target="_blank" class="bg-white/10 p-2 rounded-lg hover:bg-ilm-secondary hover:text-ilm-text transition-all">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://facebook.com/profile.php?id=61584651874559" target="_blank" class="bg-white/10 p-2 rounded-lg hover:bg-ilm-secondary hover:text-ilm-text transition-all">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@ilmedu" target="_blank" class="bg-white/10 p-2 rounded-lg hover:bg-ilm-secondary hover:text-ilm-text transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                        </a>
+                        <a href="https://linkedin.com/company/ilm-edu" target="_blank" class="bg-white/10 p-2 rounded-lg hover:bg-ilm-secondary hover:text-ilm-text transition-all">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@Ilm-Edu" target="_blank" class="bg-white/10 p-2 rounded-lg hover:bg-ilm-secondary hover:text-ilm-text transition-all">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 text-center text-gray-500 text-sm">
+                <p data-i18n="footer.rights">© 2026 ILM-EDU. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/971553114946" target="_blank" rel="noopener noreferrer" 
+       class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 flex items-center justify-center group"
+       aria-label="Contact on WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+        </svg>
+        <span class="hidden group-hover:block ml-2 whitespace-nowrap font-medium transition-all duration-300">Chat with us</span>
+    </a>
+
+    <!-- Application Script -->
+    <script>
+        // --- Translations ---
+        const content = {
+            en: {
+                nav: {
+                    home: "Home",
+                    vision: "Vision",
+                    features: "Features",
+                    contact: "Contact",
+                    bookDemo: "Book a Demo"
+                },
+                hero: {
+                    slogan: "Inquire · Learn · Master",
+                    title: "The Future of Smart Education",
+                    subtitle: "Empowering private schools in the UAE with cutting-edge learning technologies. Join us in shaping the next generation of leaders.",
+                    ctaPrimary: "Get Early Access",
+                    ctaSecondary: "Watch Video"
+                },
+                vision: {
+                    title: "Our Vision",
+                    description: "We are reimagining education by bridging the gap between traditional values and modern technology.",
+                    card1Title: "Smart Learning",
+                    card1Desc: "AI-driven curriculum adaptation for personalized student growth.",
+                    card2Title: "Seamless Integration",
+                    card2Desc: "Unified platform for students, teachers, and parents.",
+                    card3Title: "Future Ready",
+                    card3Desc: "Preparing students for the challenges of tomorrow's world."
+                },
+                features: {
+                    title: "Platform Highlights",
+                    subtitle: "Experience a seamless digital ecosystem designed for excellence.",
+                    s1: "Smart Dashboard",
+                    s2: "Live Analytics",
+                    s3: "Interactive Lessons",
+                    s4: "Parent Connect",
+                    s5: "Assignment Tracking",
+                    s6: "Mobile Ready"
+                },
+                newsletter: {
+                    title: "Join the Future",
+                    subtitle: "Be the first to know when we launch. Sign up for early access updates.",
+                    placeholder: "Enter your email address",
+                    button: "Subscribe",
+                    spam: "* No spam. Unsubscribe anytime."
+                },
+                footer: {
+                    rights: "© 2026 ILM-EDU. All Rights Reserved.",
+                    contactUs: "Contact Us",
+                    followUs: "Follow Us",
+                    desc: "Empowering the next generation of learners with advanced tools and seamless integration.",
+                    location: "UAE, Dubai"
+                }
+            },
+            ar: {
+                nav: {
+                    home: "الرئيسية",
+                    vision: "رؤيتنا",
+                    features: "المميزات",
+                    contact: "تواصل معنا",
+                    bookDemo: "احجز عرض تجريبي"
+                },
+                hero: {
+                    slogan: "استفسر · تعلم · أتقن",
+                    title: "مستقبل التعليم الذكي",
+                    subtitle: "تمكين المدارس الخاصة في الإمارات بأحدث تقنيات التعلم. انضم إلينا في تشكيل جيل المستقبل.",
+                    ctaPrimary: "احصل على وصول مبكر",
+                    ctaSecondary: "شاهد الفيديو"
+                },
+                vision: {
+                    title: "رؤيتنا",
+                    description: "نحن نعيد تصور التعليم من خلال سد الفجوة بين القيم التقليدية والتكنولوجيا الحديثة.",
+                    card1Title: "تعلم ذكي",
+                    card1Desc: "تكييف المناهج الدراسية بالذكاء الاصطناعي لنمو شخصي للطالب.",
+                    card2Title: "تكامل سلس",
+                    card2Desc: "منصة موحدة للطلاب والمعلمين وأولياء الأمور.",
+                    card3Title: "جاهز للمستقبل",
+                    card3Desc: "إعداد الطلاب لتحديات عالم الغد."
+                },
+                features: {
+                    title: "أبرز مميزات المنصة",
+                    subtitle: "جرب نظاماً رقمياً سلساً مصمماً للتميز.",
+                    s1: "لوحة تحكم ذكية",
+                    s2: "تحليلات مباشرة",
+                    s3: "دروس تفاعلية",
+                    s4: "تواصل أولياء الأمور",
+                    s5: "متابعة الواجبات",
+                    s6: "جاهز للجوال"
+                },
+                newsletter: {
+                    title: "انضم إلى المستقبل",
+                    subtitle: "كن أول من يعلم عند الإطلاق. سجل للحصول على تحديثات الوصول المبكر.",
+                    placeholder: "أدخل بريدك الإلكتروني",
+                    button: "اشترك",
+                    spam: "* لا رسائل مزعجة. يمكنك إلغاء الاشتراك في أي وقت."
+                },
+                footer: {
+                    rights: "© 2026 ILM-EDU. جميع الحقوق محفوظة.",
+                    contactUs: "اتصل بنا",
+                    followUs: "تابعنا",
+                    desc: "تمكين الجيل القادم من المتعلمين بأدوات متقدمة وتكامل سلس.",
+                    location: "الإمارات، دبي"
+                }
+            }
+        };
+
+        let currentLang = 'en';
+
+        // --- Init ---
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            initCarousel();
+        });
+
+        // --- Language Logic ---
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            updateLanguage(currentLang);
+        }
+
+        function updateLanguage(lang) {
+            // Update html tag
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            // Update Fonts
+            if (lang === 'ar') {
+                document.body.classList.add('font-arabic');
+                document.body.classList.remove('font-sans');
+            } else {
+                document.body.classList.add('font-sans');
+                document.body.classList.remove('font-arabic');
+            }
+
+            // Update Text Content
+            const t = content[lang];
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                // Resolve nested keys e.g., 'nav.home'
+                const val = key.split('.').reduce((obj, k) => obj && obj[k], t);
+                if (val) el.textContent = val;
+            });
+
+            // Update Placeholders
+            const inputs = document.querySelectorAll('[data-placeholder]');
+            inputs.forEach(el => {
+                const key = el.getAttribute('data-placeholder');
+                const val = key.split('.').reduce((obj, k) => obj && obj[k], t);
+                if (val) el.placeholder = val;
+            });
+
+            // Update Toggle Button Text
+            document.getElementById('lang-btn-text').textContent = lang === 'en' ? 'عربي' : 'EN';
+            document.getElementById('mobile-lang-text').textContent = lang === 'en' ? 'AR' : 'EN';
+        }
+
+        // --- Mobile Menu Logic ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                // Change icon to X (we can't easily change Lucide instance content, so we just toggle logic or replace HTML)
+                // Simpler approach: Just keep the menu icon or use CSS to swap. 
+                // For this simple file, we'll leave the icon as hamburger or update classes if needed.
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+
+        // --- Carousel Logic ---
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicatorsContainer = document.getElementById('slider-indicators');
+        let autoSlideInterval;
+
+        function initCarousel() {
+            // Create indicators
+            slides.forEach((_, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-3 h-3 rounded-full transition-all duration-300 ${idx === 0 ? 'bg-ilm-primary w-8' : 'bg-ilm-muted/40 hover:bg-ilm-muted'}`;
+                btn.onclick = () => goToSlide(idx);
+                indicatorsContainer.appendChild(btn);
+            });
+            startAutoSlide();
+        }
+
+        function updateCarousel() {
+            slides.forEach((slide, idx) => {
+                if (idx === currentSlide) {
+                    slide.classList.add('active');
+                    slide.style.opacity = '1';
+                    slide.style.zIndex = '10';
+                } else {
+                    slide.classList.remove('active');
+                    slide.style.opacity = '0';
+                    slide.style.zIndex = '0';
+                }
+            });
+
+            // Update indicators
+            const dots = indicatorsContainer.children;
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].className = `w-3 h-3 rounded-full transition-all duration-300 ${i === currentSlide ? 'bg-ilm-primary w-8' : 'bg-ilm-muted/40 hover:bg-ilm-muted'}`;
+            }
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateCarousel();
+            resetAutoSlide();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateCarousel();
+            resetAutoSlide();
+        }
+
+        function goToSlide(idx) {
+            currentSlide = idx;
+            updateCarousel();
+            resetAutoSlide();
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 4000);
+        }
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+
+    </script>
+</body>
+</html>
