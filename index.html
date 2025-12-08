@@ -336,62 +336,70 @@
 
         <!-- Vision Section (مع الكروت) -->
         <section id="vision" class="pt-16 pb-24 bg-ilm-bg relative overflow-hidden">
-            <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABADeOQ8CXl/xfgAAAABJRU5ErkJggg==');"></div>
-            
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="text-center mb-12 max-w-3xl mx-auto fade-in-up fade-in-up-delay-1 vision-intro">
-                    <h2 class="text-3xl md:text-5xl font-bold text-ilm-text mb-6" data-i18n="vision.title">Our Vision</h2>
-                    <p class="text-xl md:text-2xl text-ilm-muted leading-relaxed" data-i18n="vision.description">
-                        At ILM-EDU, we are redefining the future of education by uniting timeless educational values with the power of advanced artificial intelligence to create an inspiring, intelligent, and future-ready learning experience.
-                    </p>
+    <!-- خلفية خفيفة -->
+    <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAA A IklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABADeOQ8CXl/xfgAAAABJRU5ErkJggg==');"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <!-- العنوان والنص -->
+        <div class="text-center mb-12 max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-ilm-text mb-6" data-i18n="vision.title">
+                Our Vision
+            </h2>
+            <p class="text-xl md:text-2xl text-ilm-muted leading-relaxed" data-i18n="vision.description">
+                At ILM-EDU, we are redefining the future of education by uniting timeless educational values
+                with the power of advanced artificial intelligence to create an inspiring, intelligent, and
+                future-ready learning experience.
+            </p>
+        </div>
+
+        <!-- الكروت -->
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="p-8 rounded-2xl bg-ilm-primary text-white card-hover card-float">
+                <div class="mb-6 p-3 rounded-xl bg-white/20 w-fit backdrop-blur-sm icon-pulse shadow-md">
+                    <i data-lucide="lightbulb" class="w-8 h-8"></i>
                 </div>
+                <h3 class="text-2xl font-bold mb-3" data-i18n="vision.card1Title">
+                    AI-Powered Personalized Learning
+                </h3>
+                <p class="opacity-90 leading-relaxed" data-i18n="vision.card1Desc">
+                    We harness the power of artificial intelligence to deliver tailored learning
+                    experiences that nurture individual potential and elevate academic excellence.
+                </p>
+            </div>
 
-               <div class="grid md:grid-cols-3 gap-8">
-    <!-- Card 1 -->
-    <div class="p-8 rounded-2xl bg-ilm-primary text-white card-hover card-float fade-in-up fade-in-up-delay-1">
-        <div class="mb-6 p-3 rounded-xl bg-white/20 w-fit backdrop-blur-sm icon-pulse shadow-md">
-            <i data-lucide="lightbulb" class="w-8 h-8"></i>
+            <!-- Card 2 -->
+            <div class="p-8 rounded-2xl bg-ilm-secondary text-ilm-text card-hover card-float">
+                <div class="mb-6 p-3 rounded-xl bg-white/40 w-fit backdrop-blur-sm icon-pulse shadow-md">
+                    <i data-lucide="users" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3" data-i18n="vision.card2Title">
+                    A Fully Integrated Learning Ecosystem
+                </h3>
+                <p class="opacity-90 leading-relaxed" data-i18n="vision.card2Desc">
+                    A smart, unified digital platform that seamlessly connects students, teachers,
+                    and parents in one cohesive and engaging educational environment.
+                </p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="p-8 rounded-2xl bg-white text-ilm-primary border border-ilm-muted/10 card-hover card-float">
+                <div class="mb-6 p-3 rounded-xl bg-ilm-primary/10 w-fit backdrop-blur-sm icon-pulse shadow-md">
+                    <i data-lucide="rocket" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3" data-i18n="vision.card3Title">
+                    Shaping the Leaders of Tomorrow
+                </h3>
+                <p class="opacity-90 leading-relaxed" data-i18n="vision.card3Desc">
+                    We equip learners with 21st-century skills and future-focused mindsets,
+                    empowering them to become innovators, leaders, and change-makers in a
+                    rapidly evolving world.
+                </p>
+            </div>
         </div>
-        <h3 class="text-2xl font-bold mb-3" data-i18n="vision.card1Title">
-            AI-Powered Personalized Learning
-        </h3>
-        <p class="opacity-90 leading-relaxed" data-i18n="vision.card1Desc">
-            We harness the power of artificial intelligence to deliver tailored learning
-            experiences that nurture individual potential and elevate academic excellence.
-        </p>
     </div>
+</section>
 
-    <!-- Card 2 -->
-    <div class="p-8 rounded-2xl bg-ilm-secondary text-ilm-text card-hover card-float fade-in-up fade-in-up-delay-2">
-        <div class="mb-6 p-3 rounded-xl bg-white/40 w-fit backdrop-blur-sm icon-pulse shadow-md">
-            <i data-lucide="users" class="w-8 h-8"></i>
-        </div>
-        <h3 class="text-2xl font-bold mb-3" data-i18n="vision.card2Title">
-            A Fully Integrated Learning Ecosystem
-        </h3>
-        <p class="opacity-90 leading-relaxed" data-i18n="vision.card2Desc">
-            A smart, unified digital platform that seamlessly connects students, teachers,
-            and parents in one cohesive and engaging educational environment.
-        </p>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="p-8 rounded-2xl bg-white text-ilm-primary border border-ilm-muted/10 card-hover card-float fade-in-up fade-in-up-delay-3">
-        <div class="mb-6 p-3 rounded-xl bg-ilm-primary/10 w-fit backdrop-blur-sm icon-pulse shadow-md">
-            <i data-lucide="rocket" class="w-8 h-8"></i>
-        </div>
-        <h3 class="text-2xl font-bold mb-3" data-i18n="vision.card3Title">
-            Shaping the Leaders of Tomorrow
-        </h3>
-        <p class="opacity-90 leading-relaxed" data-i18n="vision.card3Desc">
-            We equip learners with 21st-century skills and future-focused mindsets,
-            empowering them to become innovators, leaders, and change-makers in a
-            rapidly evolving world.
-        </p>
-    </div>
-</div>
-
-        </section>
 
         <!-- Features Carousel -->
         <section id="features" class="py-20 bg-white relative">
@@ -796,4 +804,5 @@
     </script>
 </body>
 </html>
+
 
